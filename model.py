@@ -31,14 +31,50 @@ class Country(db.Model):
     def __repr__(self):
         return f'<Country country_id={self.country_id}'
 
+class All_country(db.Model):
+    """all countries time-series."""
+
+    __tablename__ = 'all_countries'
+
+    country_id = db.Column(db.Integer, autoincrement=True)
+    date = db.Column(db.DateTime, unique=True)
+    confirmed = db.Column(db.Integer)
+    recovered = db.Column(db.Integer)
+    deaths = db.Column(db.Integer)
+    country= db.Column(db.String, primary_key=True)
+    province_state=db.Column(db.String)
+
+    reference=db.relationship("Reference")
+
+    def __repr__(self):
+        return f'<All_country country_id={self.country_id}'
+
+class US(db.Model):
+
+    __tablename__ = 'usa'
+
+    country_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    date = db.Column(db.DateTime, unique=True)
+    confirmed = db.Column(db.Integer)
+    deaths = db.Column(db.Integer)
+    country= db.Column(db.String)
+    province_state=db.Column(db.String)
+
+    def __repr__(self):
+        return f'<US country_id={self.country_id}'
+
+
 class Reference(db.Model):
     __tablename__ = 'references'
 
     reference_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    country_region = db.Column(db.String, unique=True)
+
+    country= db.Column(db.String, db.ForeignKey('all_countries.country'),  unique=True )
     lat = db.Column(db.Integer)
     long = db.Column(db.Integer)
     population= db.Column(db.Integer)
+
+    all_country=db.relationship("All_country")
 
     def __repr__(self):
         return f'<Reference reference_id={self.reference_id}>'
@@ -63,3 +99,4 @@ if __name__ == '__main__':
     # query it executes.
 
     connect_to_db(app)
+

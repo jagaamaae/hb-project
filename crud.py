@@ -1,4 +1,4 @@
-from model import db, User, Reference, Country,  connect_to_db
+from model import db, User, Reference, Country, All_country, US, connect_to_db
 
 def create_user(email, password):
     """Create and return a new user."""
