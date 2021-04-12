@@ -36,39 +36,40 @@ with open('data/us_simplified_json.json') as us:
 
 us_data_objects = []
 for data in us_data:
-    date, country, confirmed, deaths = (  
+    date, country, state, confirmed, deaths = (  
                                     datetime.strptime(data['Date'], '%Y-%m-%d'), 
                                     data["Country/Region"],
+                                    data['Province/State']
                                     data["Confirmed"], 
                                     data['Deaths'] )
 
-    db_us= crud.create_country(date,
+    db_us= crud.create_us(date,
                                  country,
                                  confirmed,
                                     deaths)
     us_data_objects.append(db_us)
 
-with open('data/time-series-19-covid-combined_json.json') as all_countries:
-    all_country_data = json.loads(countries.read())
+# with open('data/time-series-19-covid-combined_json.json') as all_countries:
+#     all_country_data = json.loads(countries.read())
 
-all_country_data_objects = []
+# all_country_data_objects = []
 
-for data in all_countries:
-    date, country, confirmed, recovered, deaths, province_state (  
-                                    datetime.strptime(data['Date'], '%Y-%m-%d'), 
-                                    data["Country"],
-                                    data["Confirmed"], 
-                                    data["Recovered"],
-                                    data['Deaths'], 
-                                    data["Province/State"] )
+# for data in all_countries:
+#     date, country, confirmed, recovered, deaths, province_state (  
+#                                     datetime.strptime(data['Date'], '%Y-%m-%d'), 
+#                                     data["Country"],
+#                                     data["Confirmed"], 
+#                                     data["Recovered"],
+#                                     data['Deaths'], 
+#                                     data["Province/State"] )
 
-    db_all_country = crud.create_country(date,
-                                 country,
-                                 confirmed,
-                                 recovered, 
-                                 deaths, 
-                                 province_state)
-    all_country_data_objects.append(db_all_country)
+#     db_all_country = crud.create_country(date,
+#                                  country,
+#                                  confirmed,
+#                                  recovered, 
+#                                  deaths, 
+#                                  province_state)
+#     all_country_data_objects.append(db_all_country)
 
 
 with open('data/reference_json.json') as references:

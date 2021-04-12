@@ -22,7 +22,7 @@ class Country(db.Model):
     __tablename__ = 'countries'
 
     country_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    date = db.Column(db.DateTime, unique=True)
+    date = db.Column(db.DateTime)
     confirmed = db.Column(db.Integer)
     recovered = db.Column(db.Integer)
     deaths = db.Column(db.Integer)
@@ -37,7 +37,7 @@ class All_country(db.Model):
     __tablename__ = 'all_countries'
 
     country_id = db.Column(db.Integer, autoincrement=True)
-    date = db.Column(db.DateTime, unique=True)
+    date = db.Column(db.DateTime)
     confirmed = db.Column(db.Integer)
     recovered = db.Column(db.Integer)
     deaths = db.Column(db.Integer)
@@ -54,11 +54,11 @@ class US(db.Model):
     __tablename__ = 'usa'
 
     country_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    date = db.Column(db.DateTime, unique=True)
+    date = db.Column(db.DateTime)
     confirmed = db.Column(db.Integer)
     deaths = db.Column(db.Integer)
     country= db.Column(db.String)
-    province_state=db.Column(db.String)
+    state=db.Column(db.String)
 
     def __repr__(self):
         return f'<US country_id={self.country_id}'

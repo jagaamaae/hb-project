@@ -32,13 +32,22 @@ def create_country(date,country,confirmed,recovered, deaths):
 
     return country
 
-def get_user_email(email):
-    user_email=User.query.filter_by(email=email).first()
-    return user_email 
+def create_us(date,country,confirmed, deaths):
+
+    us = US (date=date,
+                                 country=country,
+                                 confirmed=confirmed, 
+                                 deaths=deaths)
+
+    db.session.add(us)
+    db.session.commit()
+
+    return us
+
 
 def get_user_by_email(email):
-    user_email=User.query.filter_by(email=email).first()
-    return user_email
+    user = User.query.filter_by(email=email).first()
+    return user
 
 
 if __name__ == '__main__':
