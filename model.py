@@ -31,7 +31,7 @@ class Country(db.Model):
     def __repr__(self):
         return f'<Country country_id={self.country_id}'
 
-class All_country(db.Model):
+class AllCountry(db.Model):
     """all countries time-series."""
 
     __tablename__ = 'all_countries'
@@ -47,21 +47,23 @@ class All_country(db.Model):
     reference=db.relationship("Reference")
 
     def __repr__(self):
-        return f'<All_country country_id={self.country_id}'
+        return f'<AllCountry country_id={self.country_id}'
 
-class US(db.Model):
+# class US(db.Model):
 
-    __tablename__ = 'usa'
+#     __tablename__ = 'usa'
 
-    country_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    date = db.Column(db.DateTime)
-    confirmed = db.Column(db.Integer)
-    deaths = db.Column(db.Integer)
-    country= db.Column(db.String)
-    state=db.Column(db.String)
+#     country_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+#     date = db.Column(db.DateTime)
+#     country= db.Column(db.String)
+#     state=db.Column(db.String)
+#     confirmed = db.Column(db.Integer)
+#     deaths = db.Column(db.Integer)
+    
+    
 
-    def __repr__(self):
-        return f'<US country_id={self.country_id}'
+#     def __repr__(self):
+#         return f'<US country_id={self.country_id}'
 
 
 class Reference(db.Model):
@@ -74,7 +76,7 @@ class Reference(db.Model):
     long = db.Column(db.Integer)
     population= db.Column(db.Integer)
 
-    all_country=db.relationship("All_country")
+    all_country=db.relationship("AllCountry")
 
     def __repr__(self):
         return f'<Reference reference_id={self.reference_id}>'
