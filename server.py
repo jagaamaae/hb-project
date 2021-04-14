@@ -2,7 +2,7 @@
 from flask import (Flask, render_template, request, flash, session,
                    redirect)
 from model import User, connect_to_db
-# import crud
+import crud
 # Replace this with routes and view functions!
 
 from jinja2 import StrictUndefined
@@ -19,13 +19,13 @@ def homepage():
 
 @app.route('/countries')
 def show_countries():
-    movies = crud.get_movies()
-    return render_template('all_countries.html', movies=movies)
+    # countries = crud.get_countries()
+    return render_template('all_countries.html')
 
 @app.route('/countries/<country_name>')
 def show_details(country_name):
     country=crud.get_country_by_id(country_name)
-    return render_template('country_details.html', movie=movie)
+    return render_template('country_details.html')
 
 
 @app.route('/users/<email>')

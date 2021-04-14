@@ -1,4 +1,5 @@
-from model import db, User, Reference, Country, AllCountry, connect_to_db
+from model import db, User, Reference,  AllCountry, connect_to_db 
+# US,Country
 
 def create_user(email, password):
     """Create and return a new user."""
@@ -19,18 +20,18 @@ def create_reference(country, lat, long, population):
 
     return reference
 
-def create_country(date,country,confirmed,recovered, deaths):
+# def create_country(date,country,confirmed,recovered, deaths):
 
-    country = Country(date=date,
-                                 country=country,
-                                 confirmed=confirmed, 
-                                 recovered=recovered,
-                                 deaths=deaths)
+#     country = Country(date=date,
+#                                  country=country,
+#                                  confirmed=confirmed, 
+#                                  recovered=recovered,
+#                                  deaths=deaths)
 
-    db.session.add(country)
-    db.session.commit()
+#     db.session.add(country)
+#     db.session.commit()
 
-    return country
+#     return country
 
 # def create_us(date, country, state, confirmed, deaths ):
 
