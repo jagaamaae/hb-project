@@ -1,7 +1,7 @@
 """Server for movie ratings app."""
 from flask import (Flask, render_template, request, flash, session,
                    redirect)
-from model import User, connect_to_db
+from model import Country, User, connect_to_db
 import crud
 # Replace this with routes and view functions!
 
@@ -19,13 +19,13 @@ def homepage():
 
 @app.route('/countries')
 def show_countries():
-    # countries = crud.get_countries()
-    return render_template('all_countries.html')
+    countries = crud.get_countries()
+    return render_template('all_countries.html', countries=countries)
 
 @app.route('/countries/<country_name>')
 def show_details(country_name):
-    country=crud.get_country_by_id(country_name)
-    return render_template('country_details.html')
+    country=crud.get_country_by_name(country_name)
+    return render_template('country_details.html', country=country)
 
 
 @app.route('/users/<email>')

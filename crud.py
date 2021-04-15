@@ -1,4 +1,4 @@
-from model import db, User, Reference,  AllCountry, connect_to_db 
+from model import db, User, Stat, Country, connect_to_db 
 # US,Country
 
 def create_user(email, password):
@@ -13,7 +13,7 @@ def create_user(email, password):
 
 def create_reference(country, lat, long, population):
 
-    reference= Reference(country=country, lat=lat, long=long, population = population)
+    reference= Country(country=country, lat=lat, long=long, population = population)
 
     db.session.add(reference)
     db.session.commit()
@@ -49,7 +49,7 @@ def create_reference(country, lat, long, population):
 
 def create_all_country(date, confirmed, recovered, deaths, country, province_state):
 
-    all_country = AllCountry(date=date,
+    all_country = Stat(date=date,
                                  
                                  confirmed=confirmed, 
                                  recovered=recovered,
@@ -68,6 +68,14 @@ def get_user_by_email(email):
     user = User.query.filter_by(email=email).first()
     return user
 
+
+def get_countries():
+    """Return all movies."""
+    return Country.query.all()
+
+def get_country_names(country_name):
+    country_name = Country.query.get(country_name).first()
+    return country_name
 
 if __name__ == '__main__':
     from server import app

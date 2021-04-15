@@ -3,12 +3,12 @@
 {% block title %}Country Name Homepage{% endblock %}
 
 {% block body %}
-<h1>All Movies</h1>
+<h1>All countries</h1>
 <ul>
-  {% for country in all_countries %}
+  {% for country in countries %}
   <li>
-    <a href="/countries/{{ countries.country_name }}">
-  <p>{{ movie.title }}</p>
+    <a href="/countries/{{ country.country}}">
+  <p>{{country.country}}</p>
 </li>
   {% endfor %}
 </ul>

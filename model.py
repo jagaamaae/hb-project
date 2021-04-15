@@ -31,13 +31,12 @@ class User(db.Model):
 #     def __repr__(self):
 #         return f'<Country country_id={self.country_id}'
 
-class AllCountry(db.Model):
-    """all countries time-series."""
-
-    __tablename__ = 'all_countries'
+class Stat(db.Model):
+    __tablename__ = 'stats'
 
 
     stat_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    country_id = db.Column(db.Integer, db.ForeignKey('countries.country_id'))
     date = db.Column(db.DateTime)
     confirmed = db.Column(db.Integer)
     recovered = db.Column(db.Integer)
@@ -45,27 +44,22 @@ class AllCountry(db.Model):
     country= db.Column(db.String)
     province_state=db.Column(db.String)
 
-    reference=db.relationship("Reference")
+    country=db.relationship("Country", backref = "stats")
 
     def __repr__(self):
-        return f'<AllCountry country_id={self.country_id}'
+        return f'<Stat stat_id={self.stat_id}>'
 
-
-class Reference(db.Model):
-    __tablename__ = 'references'
-
-
-    reference_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-
-    stat_id = db.Column(db.Integer, db.ForeignKey('all_countries.stat_id'),  unique=True )
+class Country(db.Model):
+    __tablename__ = 'countries'
+    country_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    country = db.Column(db.String)
+    # stat_id = db.Column(db.Integer, db.ForeignKey('stats.stat_id'))
     lat = db.Column(db.Integer)
     long = db.Column(db.Integer)
     population= db.Column(db.Integer)
 
-    all_country=db.relationship("AllCountry")
-
     def __repr__(self):
-        return f'<Reference reference_id={self.reference_id}>'
+        return f'<Country country_id={self.country_id}>'
 
 
 # class US(db.Model):
@@ -98,7 +92,8 @@ def connect_to_db(flask_app, db_uri='postgresql:///covid19', echo=True):
 
 if __name__ == '__main__':
     from server import app
-
+    # from flask import Flask
+    # app = Flask(__name__)
     # Call connect_to_db(app, echo=False) if your program output gets
     # too annoying; this will tell SQLAlchemy not to print out every
     # query it executes.
