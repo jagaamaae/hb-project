@@ -1,13 +1,12 @@
 {% extends 'base.html' %}
 
-{% block title %}{{ movie.title }} - Details{% endblock %}
+{% block title %}{{ country }} - Details{% endblock %}
 
 {% block body %}
-<h1>{{ movie.title }}</h1>
+<h1>{{ country}}</h1>
 
 <p>
-  {{ movie.overview }}
+  Population is {{ population }}
 </p>
 
-<img src="{{ movie.poster_path }}">
 {% endblock %}
