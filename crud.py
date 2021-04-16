@@ -64,17 +64,31 @@ def create_all_country(date, confirmed, recovered, deaths, country, province_sta
     return all_country
 
 
-def get_user_by_email(email):
-    user = User.query.filter_by(email=email).first()
-    return user
+def get_users():
+    """Return all users."""
 
+    return User.query.all()
+
+
+def get_user_by_id(user_id):
+    """Return a user by primary key."""
+
+    return User.query.get(user_id)
+
+
+def get_user_by_email(email):
+    """Return a user by email."""
+
+    return User.query.filter(User.email == email).first()
+
+    
 
 def get_countries():
     """Return all movies."""
     return Country.query.all()
 
 def get_country_names(country_name):
-    country_name = Country.query.get(country_name).first()
+    country_name = Country.query.get(country_name)
     return country_name
 
 if __name__ == '__main__':

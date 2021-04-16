@@ -5,7 +5,7 @@
 {% block body %}
 <h1>All countries</h1>
 <ul>
-  {% for country in countries %}
+  {% for country in display_countries %}
   <li>
     <a href="/countries/{{ country.country}}">
   <p>{{country.country}}</p>
