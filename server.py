@@ -33,12 +33,14 @@ def show_details(country):
     return render_template('country_details.html', cases = cases, population=population, country=country,)
 
 @app.route('/users')
-def all_users():
-    """View all users."""
-
+def show_users():
     users = crud.get_users()
-
     return render_template('all_users.html', users=users)
+
+@app.route('/users/<email>')
+def show_users_details(email):
+    user=crud.get_user_by_email(email)
+    return render_template('user_details.html', user=user)
 
 
 @app.route('/users', methods=['POST'])
