@@ -23,26 +23,14 @@ def homepage():
 @app.route('/countries')
 def show_countries():
     countries = crud.get_countries()
-    distinct_countries = set()
-    display_countries = []
-    for country in countries:
-        if country.country not in distinct_countries:
-            display_countries.append(country)
-            distinct_countries.add(country.country)
-    
-    
-    return render_template('all_countries.html', display_countries=display_countries)
+    return render_template('all_countries.html', countries=countries)
+
 
 @app.route('/countries/<country>')
-
 def show_details(country):
-    population = crud.get_population_by_country(country)
-    return render_template('country_details.html', population=population, country=country)
-
-# @app.route('/all_cases')
-# def show_details(cases):
-#     return render_template('all_cases.html', country=cases)
-
+    population=crud.get_population_by_country(country)
+    cases=crud.get_country_cases(country)
+    return render_template('country_details.html', cases = cases, population=population, country=country,)
 
 @app.route('/users')
 def all_users():
