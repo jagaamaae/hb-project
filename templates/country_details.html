@@ -3,13 +3,27 @@
 {% block title %}{{ country }} - Details{% endblock %}
 
 {% block body %}
+
 <h1>{{ country}}</h1>
+<style>
+  table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+  }
+  th, td {
+    padding: 5px;
+    text-align: left;    
+  }
+  </style>
+  </head>
+  <body>
+
 <p>
   Population is {{ population }}
 </p>
 <h2> COVID cases </h3>
-  <table style = "width:100%">
-    
+  <table style = "width:60%">
+
   <tr>
     <th>Date</th>
     <th>Confirmed </th>
