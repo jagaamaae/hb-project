@@ -10,6 +10,7 @@
   <ul>
     <li><a href="/countries">View all countries</a></li>
     <li><a href="/users">View all users</a></li>
+    <li><a href='/most_affected>'>View countries with most cases</a></li>
   </ul>
   <h2>Create an Account</h2>
   <form action="/users" method="POST">
@@ -42,6 +43,11 @@
       <p>
         <input type="submit">
       </p>
+    </form>
+
+  <h2>Logout</h2>
+    <form action="/logout" method="POST">
+      <input type= 'submit'> logout </input>
     </form>
   <!-- {% block js %}
     <script src="/static/js/homepage.jsx" type="text/jsx"></script>

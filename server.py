@@ -79,6 +79,14 @@ def login_info():
         flash("Either email or password don't match")
     return redirect('/')
 
+  
+@app.route("/logout", methods=['POST'])
+def logout_info():
+    if 'email' in session:
+        session.clear()
+    return redirect('/')
+
+
 @app.route('/countries/<country>.json')
 def data_dictionary(country):
     cases=crud.get_country_cases(country)
@@ -118,6 +126,90 @@ def data_dictionary(country):
                      ]
              }
     return jsonify(data_dict)
+
+
+@app.route('/countries/<country>.json')
+def data_countries(country):
+    cases=crud.get_country_cases(country)
+    data_dict={}
+    confirmed =[case.confirmed for case in cases]
+    recovered=[case.recovered for case in cases]
+    deaths=[case.deaths for case in cases]
+    dates=[str(case.date) for case in cases]
+    data_dict = {
+                "labels": dates,
+                 "datasets": 
+                     [{"label":"confirmed",
+                     "data": confirmed,
+                         "borderColor": "rgba(220,220,220,0.2)",
+                        
+                        "hoverBackgroundColor": 
+                            "#FFF"
+                             
+                     }, 
+                     {"label":"recovered",
+                     "data": recovered,
+                         "borderColor": "rgba(220,220,220,0.2)",
+                        
+                        "hoverBackgroundColor": 
+                            "#FFF"
+                              
+                     }, 
+                     {"label":"deaths",
+                     "data": deaths,
+                         "borderColor": "rgba(220,220,220,0.2)",
+                        
+                        "hoverBackgroundColor": 
+                            "#FFF"
+                               
+                     }
+                 
+                     ]
+             }
+    return jsonify(data_dict)
+
+
+
+@app.route('/most_affected/<country>.json')
+def data_most_affected(country):
+    cases=crud.get_country_cases(country)
+    data_dict={}
+    confirmed =[case.confirmed for case in cases]
+    recovered=[case.recovered for case in cases]
+    deaths=[case.deaths for case in cases]
+    dates=[str(case.date) for case in cases]
+    data_dict = {
+                "labels": dates,
+                 "datasets": 
+                     [{"label":"confirmed",
+                     "data": confirmed,
+                         "borderColor": "rgba(220,220,220,0.2)",
+                        
+                        "hoverBackgroundColor": 
+                            "#FFF"
+                             
+                     }, 
+                     {"label":"recovered",
+                     "data": recovered,
+                         "borderColor": "rgba(220,220,220,0.2)",
+                        
+                        "hoverBackgroundColor": 
+                            "#FFF"
+                              
+                     }, 
+                     {"label":"deaths",
+                     "data": deaths,
+                         "borderColor": "rgba(220,220,220,0.2)",
+                        
+                        "hoverBackgroundColor": 
+                            "#FFF"
+                               
+                     }
+                 
+                     ]
+             }
+    return jsonify(data_dict)
+
 
 if __name__ == '__main__':
     connect_to_db(app)

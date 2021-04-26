@@ -6,7 +6,6 @@
   img{
     border: solid black 2px;
     height: 200 ;
-    weight: 300;
     
   }
   /* div {display:flex;
@@ -20,8 +19,13 @@
 
 {% block body %}
 <h1>All countries</h1>
-<p>Logout
-</p>
+
+
+<h2>Logout</h2>
+<form action="/logout" method="POST">
+  <input type= 'submit'>  </input>
+</form>
+
 
 <ul>
   {% for country in countries %}
@@ -31,41 +35,12 @@
     <a href="/countries/{{country.country}}">
   <p>{{country.country}}</p>
 
-  <img src="/static/img/{{flags.get(country.country)}}.png">
-</div>
-.tooltip {
-  position: relative;
-  display: inline-block;
-  border-bottom: 1px dotted black;
-}
-
-
-.tooltip .tooltiptext {
-  visibility: hidden;
-  width: 120px;
-  background-color: black;
-  color: #fff;
-  text-align: center;
-  border-radius: 6px;
-  padding: 5px 0;
-
-  /* Position the tooltip */
-  position: absolute;
-  z-index: 1;
-}
-
-.tooltip:hover .tooltiptext {
-  visibility: visible;
-}
-</style>
-<body style="text-align:center;">
-
-<div class="tooltip">"{{flags.get(country.country)}}.png"
-  <span class="tooltiptext">{{country.country}}</span>
+  <img title="{{country.country}}" src="/static/img/{{flags.get(country.country)}}.png">
 </div>
 </li>
 
   {% endfor %}
 </ul>
+
 
 {% endblock body %}
