@@ -16,38 +16,6 @@
 </div>
 
   <script>
-    const options = {
-      responsive: true
-    };
-
-    
-    let ctx_line = $("#lineChart").get(0).getContext("2d");
-
-    $.get("/countries/{{country}}.json", function (data) {
-    console.log(data)
-    
-    let myLineChart = Chart.Line(ctx_line, {
-                                data: data,
-                                type: "line",
-                                options: options
-                            });
-    $("#lineLegend").html(myLineChart.generateLegend());
-    });
-
-    // let lineChart = document.getElementById('lineChart');
-   
-    // let ctx_line = $("#lineChart").get(0).getContext("2d");
-
-    // $.get("/countries/{{country}}.json", function (data) {
-    //   console.log(data['dataset'][0]['data'])
-    //   let myLineChart = new Chart(lineChart, {
-    //                                 type: 'line',
-    //                                 labels: data['labels'],
-    //                                 data: data['dataset'][0]['data'],
-    //                                 options: options
-    //                             });
-    //   $('#lineLegend').html(myLineChart.generateLegend());
-    // }); 
     </script>
 
 
