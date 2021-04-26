@@ -1,12 +1,9 @@
-"""Server for movie ratings app."""
+"""Server for covid cases app."""
 from flask import (Flask, render_template, request, flash, session,
-                   redirect)
-from model import Country, User, connect_to_db
+                   redirect, jsonify)
+from model import User, Country, CountryStats, connect_to_db
 import crud
-
-import numpy as np
-import pandas as pd
-import matplotlib.pyplot as plt
+import json
 
 from jinja2 import StrictUndefined
 
@@ -17,19 +14,31 @@ app.jinja_env.undefined = StrictUndefined
 
 @app.route('/')
 def homepage():
-    """View homepage."""
+    """Show homepage with form for user's name. If name already stored, redirect."""
+    if 'email' in session:
+        return redirect('/countries')
     return render_template('homepage.html')
 
 @app.route('/countries')
 def show_countries():
     countries = crud.get_countries()
-    return render_template('all_countries.html', countries=countries)
+    with open('./data/reversed.json','r') as f:
+        flags = json.loads(f.read())
+        flags=flags[0]
+    return render_template('all_countries.html', countries=countries, flags=flags)
 
+@app.route('/get-email')
+def get_user():
+    user = request.args.get("email")
+    session['email']= user
+    return redirect("/countries")
 
 @app.route('/countries/<country>')
 def show_details(country):
     population=crud.get_population_by_country(country)
     cases=crud.get_country_cases(country)
+    # if 'email' not in session:
+    #     return redirect('/')
     return render_template('country_details.html', cases = cases, population=population, country=country,)
 
 @app.route('/users')
@@ -42,33 +51,19 @@ def show_users_details(email):
     user=crud.get_user_by_email(email)
     return render_template('user_details.html', user=user)
 
-
-@app.route('/users', methods=['POST'])
+@app.route("/users", methods = ["POST"])
 def register_user():
-    """Create a new user."""
-
-    email = request.form.get('email')
-    password = request.form.get('password')
-
+    email=request.form.get('email')
+    password=request.form.get('password')
     user = crud.get_user_by_email(email)
-    print(user)
     if user:
-        flash('This email/password combination is already taken. Try again.')
+        flash('The account exists already. Try another account')
     else:
         crud.create_user(email, password)
         flash('Account created! Please log in.')
 
     return redirect('/')
-
-
-@app.route('/users/<user_id>')
-def show_user(user_id):
-    """Show details on a particular user."""
-
-    user = crud.get_user_by_email(user_id)
-
-    return render_template('user_details.html', user=user)
-
+    
 @app.route("/login-info", methods = ['POST'])
 def login_info():
     email=request.form.get('email')
@@ -79,78 +74,51 @@ def login_info():
         flash('Logged in!') 
         session['email'] = user.email
         session['user_id'] = user.user_id
-        return redirect('/')
+        return redirect('/countries')
     else:
         flash("Either email or password don't match")
     return redirect('/')
 
-@app.route('/cases/<country>.json')
+@app.route('/countries/<country>.json')
 def data_dictionary(country):
     cases=crud.get_country_cases(country)
     data_dict={}
-    for case in cases:
-        data_dict[str(case.date)] = {
-            "labels": [
-            "date"
-            "country",
-            "confirmed",
-            "recovered", 
-            'deaths'
-                ],
-                "datasets": [
-                    {"data": [case.date,case.country,case.confirmed, case.recovered, case.deaths],
-                        "backgroundColor": [
-                            "#FF6384",
-                            "#36A2EB",
-                            "#FFCE56", 
-                            "#FFCE56",
-                            "#FFCE56"
-                        ],
-                        "hoverBackgroundColor": [
-                            "#FF6384",
-                            "#36A2EB",
-                            "#FFCE56",
-                            "#36A2EB",
-                            "#36A2EB"
-                        ]
-                    }]
-            }
+    confirmed =[case.confirmed for case in cases]
+    recovered=[case.recovered for case in cases]
+    deaths=[case.deaths for case in cases]
+    dates=[str(case.date) for case in cases]
+    data_dict = {
+                "labels": dates,
+                 "datasets": 
+                     [{"label":"confirmed",
+                     "data": confirmed,
+                         "borderColor": "rgba(220,220,220,0.2)",
+                        
+                        "hoverBackgroundColor": 
+                            "#FFF"
+                             
+                     }, 
+                     {"label":"recovered",
+                     "data": recovered,
+                         "borderColor": "rgba(220,220,220,0.2)",
+                        
+                        "hoverBackgroundColor": 
+                            "#FFF"
+                              
+                     }, 
+                     {"label":"deaths",
+                     "data": deaths,
+                         "borderColor": "rgba(220,220,220,0.2)",
+                        
+                        "hoverBackgroundColor": 
+                            "#FFF"
+                               
+                     }
+                 
+                     ]
+             }
     return jsonify(data_dict)
 
-
-@app.route('/cases/<country>')
-def melon_times_data():
-    """Return time series data of Melon Sales."""
-
-    data_dict = {
-        "labels": ["January", "February", "March", "April", "May", "June", "July"],
-        "datasets": [
-            {
-                "label": "Country",
-                "fill": True,
-                "lineTension": 0.5,
-                "backgroundColor": "rgba(220,220,220,0.2)",
-                "borderColor": "rgba(220,220,220,1)",
-                "borderCapStyle": 'butt',
-                "borderDash": [],
-                "borderDashOffset": 0.0,
-                "borderJoinStyle": 'miter',
-                "pointBorderColor": "rgba(220,220,220,1)",
-                "pointBackgroundColor": "#fff",
-                "pointBorderWidth": 1,
-                "pointHoverRadius": 5,
-                "pointHoverBackgroundColor": "#fff",
-                "pointHoverBorderColor": "rgba(220,220,220,1)",
-                "pointHoverBorderWidth": 2,
-                "pointRadius": 3,
-                "pointHitRadius": 10,
-                "data": [65, 59, 80, 81, 56, 55, 40],
-                "spanGaps": False},
-        ]
-    }
-    return data_dict
-  
-  
 if __name__ == '__main__':
     connect_to_db(app)
     app.run(host='0.0.0.0', debug=True)

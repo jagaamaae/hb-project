@@ -1,15 +1,39 @@
 {% extends 'base.html' %}
 
-{% block title %}Country Name Homepage{% endblock %}
+{% block title %}
+<style>
+  h1 {color:red;}
+  img{
+    border: solid black 2px;
+    height: 200 ;
+    weight: 300;
+    
+  }
+  /* div {display:flex;
+  flex-direction:column;
+  flex-wrap:wrap;
+  } */
+
+</style>
+
+{% endblock %}
 
 {% block body %}
 <h1>All countries</h1>
+
 <ul>
   {% for country in countries %}
+
   <li>
+  <div>
     <a href="/countries/{{country.country}}">
   <p>{{country.country}}</p>
+
+  <img src="/static/img/{{flags.get(country.country)}}.png">
+</div>
 </li>
+
   {% endfor %}
 </ul>
+
 {% endblock body %}

@@ -1,9 +1,10 @@
 {% extends 'base.html' %}
 
-{% block title %}Movie Ratings Home{% endblock %}
+{% block title %}Covid Cases Home{% endblock %}
 
-{% block body %}
+{% block body %} 
   <h1>Welcome!</h1>
+  <img id='home-img' src='https://www.libarts.colostate.edu/wp-content/uploads/2019/11/United-Nations-international-flags_slider-1800x500.jpg'/>
 
   <h2>Navigation</h2>
   <ul>
@@ -13,30 +14,37 @@
   <h2>Create an Account</h2>
   <form action="/users" method="POST">
     <p>
-      Email <input type="text" name="email">
+        Email <input type="text" name="email">
     </p>
 
     <p>
       Password <input type="password" name="password">
     </p>
+   
+    <div>
     <p>
       <input type="submit">
     </p>
-    </form>
+    </div>
+  </form>
+
   <h2>Login</h2>
-  
     <form action="/login-info" method="POST">
+  
       <p>
         Email <input type="text" name="email">
       </p>
-  
+   
       <p>
         Password <input type="password" name="password">
       </p>
+
       <p>
         <input type="submit">
       </p>
+    </form>
+  <!-- {% block js %}
+    <script src="/static/js/homepage.jsx" type="text/jsx"></script>
+  {% endblock %} -->
 
-
-  </form>
 {% endblock %}

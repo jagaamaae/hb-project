@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block title %}Melon Sales{% endblock %}
+
+
+{% block content %}
+
+
+  <h2> Melon Sales Dashboard </h2>
+
+  <div class="melon-chart">
+    <canvas id="donutChart"></canvas>
+    <div id="donutLegend" class="chart-legend"></div>
+  </div>
+
+  <div class="melon-chart">
+    <canvas id="lineChart"></canvas>
+    <div id="lineLegend" class="chart-legend"></div>
+  </div>
+
+  <script>
+    const options = {
+      responsive: true
+    };
+
+    // Make Donut Chart of percent of different types of Melons
+    let ctx_donut = $("#donutChart").get(0).getContext("2d");
+
+    $.get("/melon-types.json", function (data) {
+      let myDonutChart = new Chart(ctx_donut, {
+                                              type: 'doughnut',
+                                              data: data,
+                                              options: options
+                                            });
+      $('#donutLegend').html(myDonutChart.generateLegend());
+    });
+
+    // Make Line Chart of Melon Sales over time
+    let ctx_line = $("#lineChart").get(0).getContext("2d");
+
+    $.get("/melon-times.json", function (data) {
+      let myLineChart = Chart.Line(ctx_line, {
+                                    data: data,
+                                    options: options
+                                });
+      $("#lineLegend").html(myLineChart.generateLegend());
+    });
+
+  </script>
+
+{% endblock %}
