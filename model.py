@@ -20,16 +20,14 @@ class User(db.Model):
     def __repr__(self):
         return f'<User user_id={self.user_id} email={self.email}>'
     
-# test0@test.com | test
-#  129 | 2020-05-29 | Afghanistan                      |     13662 |      1259 |    247
-#  488 | 2020-03-10 | Albania                          |        10 |         0 |      0
-# 2 | Albania                                      |    2866376
 
 class Country(db.Model):
     __tablename__ = 'countries'
     country = db.Column(db.String, primary_key=True)
     population= db.Column(db.Integer)
+
     country_stats = db.relationship("CountryStats", backref='countries')
+    # state_stats = db.relationship("USStates", backref='countries')
     
     def __repr__(self):
         return f'<Country country={self.country}>'
@@ -46,21 +44,19 @@ class CountryStats(db.Model):
     def __repr__(self):
         return f'<Country country={self.country}'
 
-class US(db.Model):
+# class USStates(db.Model):
 
-    __tablename__ = 'usa'
+#     __tablename__ = 'us_states'
 
-    country_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    date = db.Column(db.DateTime)
-    country= db.Column(db.String)
-    state=db.Column(db.String)
-    confirmed = db.Column(db.Integer)
-    deaths = db.Column(db.Integer)
-    
-    
-
-    def __repr__(self):
-        return f'<US country_id={self.country_id}'
+#     state_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+#     date = db.Column(db.DateTime)
+#     country= db.Column(db.String, db.ForeignKey('countries.country'))
+#     state=db.Column(db.String)
+#     confirmed = db.Column(db.Integer)
+#     deaths = db.Column(db.Integer)
+  
+#     def __repr__(self):
+#         return f'<state state_id={self.state_id}'
 
 
 def connect_to_db(flask_app, db_uri='postgresql:///covid', echo=True):

@@ -1,34 +1,160 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <script
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bootstrap</title>
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
+  <link rel="stylesheet" href="./static/bootstrap-styles.css">
+  <script
       src="https://code.jquery.com/jquery-3.4.1.js"
       integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
       crossorigin="anonymous"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.1/Chart.js"></script>
-      {% block title %}TITLE GOES HERE{% endblock %}
- 
-  <!-- Include any page-specific Javascript using this block. -->
-  {% block js %}
-  {% endblock %}
+<head>
 
+<body>
 
+  <!-- Static navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark">
 
-    </head>
-    <body>
-    <div>
+    <a id="ubermelon-logo" class="navbar-brand" href="#">Cases</a>
+
+    <!-- Make navbar toggleable for small devices -->
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="#">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Contact</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Data sources</a>
+        </li>
+      </ul>
+
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="#" data-toggle="modal" data-target="#exampleModal">Login</a>
+        </li>
+
+          <!-- Login Modal -->
+          <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="modalLabel"> Login</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  ...
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-primary">Login</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- End login modal -->
+
+        <!-- Settings Dropdown -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Settings
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="#">Favorite Countries</a>
+            <a class="dropdown-item" href="#">Profile</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#">Settings</a>
+          </div>
+        </li>
+        <!-- End dropdown -->
+
+      </ul>
+
+      <!-- Search form -->
+      <form class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+      </form>
+      <!-- End search -->
+
     </div>
-    <div>
-      {% for msg in get_flashed_messages()%}
-      <p class ="flash-msg%">
-        {{msg}}
+    <!-- End nav content -->
+  </nav>
 
-      </p>
-      {% endfor %}
-      {% block body %}{% endblock %}
+  <!-- It's container-fluid so it spans the entire page. -->
+  <div class="container-fluid">
+    <!-- Begin centered main text -->
+      <div class="row align-items-center">
+        <section class="col-6 mx-auto" id="splash">
+          <img src="melon.jpg" class="img-fluid center-block" alt="Image of melon" id="hero">
+          <p>We deliver COVID related charts on time<p>
+        </section>
     </div>
-  </body>
+    <!-- End of centered main text -->
+
+    <!-- Row for features columns -->     
+    <div class="row" id="featurerow">
+
+      <section class="col feature">
+        <i class="fas fa-trophy"></i>
+        <b>Award Winning</b>
+        <p>
+          Don't take our word for it. <br>
+        </p>
+      </section>
+
+      <section class="col feature">
+        <i class="fas fa-globe"></i>
+        <b>Huge Selection of data</b>
+        <p>
+          We import data from all over the world,<br> ensuring we have every country information you could possibly desire.
+        </p>
+      </section>
+
+      <section class="col feature">
+        <i class="fas fa-certificate"></i>
+        <b>Certified data</b>
+        <p>
+          The best resource for the latest statistics.
+        </p>
+      </section>
+
+    </div>
+    <!-- End of three feature columns -->
+    </div>
+  <div>
+    {% for msg in get_flashed_messages()%}
+    <p class ="flash-msg%">
+      {{msg}}
+
+    </p>
+    {% endfor %}
+    {% block body %}{% endblock %}
+  </div>
+  
+  <script
+  src="https://code.jquery.com/jquery-3.4.1.js"
+  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+  crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.1/Chart.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.1/Chart.js"></script>
+  
+</body>
 </html>
+
+

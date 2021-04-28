@@ -2,17 +2,14 @@
 
 {% block title %}
 <style>
-  h1 {color:red;}
   img{
     border: solid black 2px;
     height: 200 ;
-    
   }
   /* div {display:flex;
   flex-direction:column;
   flex-wrap:wrap;
   } */
-
 </style>
 
 {% endblock %}
@@ -20,12 +17,26 @@
 {% block body %}
 <h1>All countries</h1>
 
-
-<h2>Logout</h2>
 <form action="/logout" method="POST">
-  <input type= 'submit'>  </input>
-</form>
+  <!-- <input type= 'submit'>  </input> -->
 
+  <button id='signIn' class='signInText'>Log In</button>
+  <script>
+  "use strict";
+    let button = document.querySelector('#signIn');
+
+    function changeText() {
+      if (button.innerHTML === 'Log In') {
+        button.innerHTML = 'Log Out';
+      }
+      else if (button.innerHTML === 'Log Out') {
+        button.innerHTML = 'Log In';
+    }
+  }
+
+    signIn.addEventListener('click', changeText);
+  </script>
+</form>
 
 <ul>
   {% for country in countries %}
@@ -41,6 +52,21 @@
 
   {% endfor %}
 </ul>
+
+<!-- <div class="hint">
+  <div> -->
+
+  {% for country in countries %}
+  <a href="/countries/{{country.country}}"></a>
+  {{country.country}}
+ 
+  <img title="{{country.country}}" src="/static/img/{{flags.get(country.country)}}.png">
+  
+  {% endfor %}
+<!-- 
+</div>
+</div> -->
+
 
 
 {% endblock body %}

@@ -15,12 +15,29 @@
   <div id="lineLegend" class="chart-legend"></div>
 </div>
 
-  <script>"/static/js/chartsJs.js"</script>
-c
+  <script>
+    const options = {
+        responsive: true
+      };
+  
+      
+      let ctx_line = $("#lineChart").get(0).getContext("2d");
+  
+      $.get("/countries/{{country}}.json", function (data) {
+      console.log(data)
+      
+      let myLineChart = Chart.Line(ctx_line, {
+                                  data: data,
+                                  type: "line",
+                                  options: options
+                              });
+      $("#lineLegend").html(myLineChart.generateLegend());
+      });
+      </script>
 
 
 <h2> COVID cases </h3>
-  <table style = "width:60%">
+  <table style = "width:60%" class=collapsible>
 
   <tr>
     <th>Date</th>
