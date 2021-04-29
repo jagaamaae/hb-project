@@ -59,24 +59,30 @@
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                  <form action="/logout" method="POST">
-                    <!-- <button type="button" class="btn btn-primary">Logout</button> -->
-                    <button type='button' class="btn btn-primary">Logout</button>
-                    <script>
+                  
+                    {% if "email" in session %}
+                    <form action="/logout" method="POST"></form>
+                    <button type='submit' id="signIn" class="btn btn-primary">Logout</button>
+                    {% else %}
+                    <form action="/login-info" method="POST"></form>
+                    <button type='submit' id="signIn" class="btn btn-primary">Login</button>
+                    {% endif %}
+                   
+                    <!-- <script>
                     "use strict";
                       let button = document.querySelector('#signIn');
                   
                       function changeText() {
-                        if (button.innerHTML === 'Log In') {
-                          button.innerHTML = 'Log Out';
+                        if (button.innerHTML === 'Logout') {
+                          button.innerHTML = 'Login';
                         }
-                        else if (button.innerHTML === 'Log Out') {
-                          button.innerHTML = 'Log In';
+                        else if (button.innerHTML === 'Logout') {
+                          button.innerHTML = 'Login';
                       }
                     }
                   
                       signIn.addEventListener('click', changeText);
-                    </script>
+                    </script> -->
                   </form>
                   
                   
@@ -89,11 +95,13 @@
         <!-- Settings Dropdown -->
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Settings
+            Profile
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="most_affected.html">Favorite Countries</a>
-            <a class="dropdown-item" href="#">Profile</a>
+            {% if "email" in session %}
+            <a class="dropdown-item" href='/users/<email>'>Your Profile</a>
+
+              {% endif %}
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="#">Settings</a>
           </div>
