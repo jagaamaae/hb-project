@@ -19,24 +19,73 @@ class User(db.Model):
 
     def __repr__(self):
         return f'<User user_id={self.user_id} email={self.email}>'
+
+# class USInfo(db. Model):
+#     __tablename__ = 'state_info'
+#     state = db.Column(db.String, primary_key=True)
+#     population= db.Column(db.Integer)
+#     capital = db.Column(db.String)
+
+#     us_state_rel = db.relationship("USStates", backref='USInfo')
+
+#     def __repr__(self):
+#         return f'<state state_id={self.state_id}'
+
+
+# class USStates(db.Model):
+
+#     __tablename__ = 'us_states'
+#     state_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+#     date = db.Column(db.DateTime)
+#     country= db.Column(db.String)
+#     state=db.Column(db.String, db.ForeignKey('state_info.state'))
+#     confirmed = db.Column(db.Integer)
+#     deaths = db.Column(db.Integer)
+  
+#     def __repr__(self):
+#         return f'<state state_id={self.state_id}'
     
 
-class Country(db.Model):
-    __tablename__ = 'countries'
+class CountryPopulation(db.Model):
+    __tablename__ = 'country_population'
     country = db.Column(db.String, primary_key=True)
     population= db.Column(db.Integer)
-
-    country_stats = db.relationship("CountryStats", backref='countries')
-    # state_stats = db.relationship("USStates", backref='countries')
     
+    country_capital_rel = db.relationship("CountryContinent", backref='country_population')
+    country_continent_rel = db.relationship("CountryCapital", backref='country_population')
+    country_stats_rel = db.relationship("CountryStats", backref='country_population')
+   
+
+
     def __repr__(self):
         return f'<Country country={self.country}>'
 
+class CountryContinent(db.Model):
+    __tablename__ = 'country_continent'
+
+    country_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    country = db.Column(db.String, db.ForeignKey('country_population.country'))
+    continent = db.Column(db. String)
+
+    def __repr__(self):
+        return f'<Country country={self.country}>'
+
+class CountryCapital(db.Model):
+    __tablename__ = 'country_capital'
+
+    country_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    country = db.Column(db.String, db.ForeignKey('country_population.country'))
+    capital = db.Column(db. String)
+
+    def __repr__(self):
+        return f'<Country country={self.country}>'
+
+  
 class CountryStats(db.Model):
     __tablename__ = 'country_stats'
     country_id = db.Column(db.Integer, autoincrement=True, primary_key=True )
     date = db.Column(db.Date)
-    country = db.Column(db.String, db.ForeignKey('countries.country'))
+    country = db.Column(db.String, db.ForeignKey('country_population.country'))
     confirmed = db.Column(db.Integer)
     recovered = db.Column(db.Integer)
     deaths = db.Column(db.Integer)    
@@ -44,19 +93,23 @@ class CountryStats(db.Model):
     def __repr__(self):
         return f'<Country country={self.country}'
 
-# class USStates(db.Model):
 
-#     __tablename__ = 'us_states'
+# class CountryStates(db.Model):
+#     """all countries time-series."""
 
-#     state_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-#     date = db.Column(db.DateTime)
-#     country= db.Column(db.String, db.ForeignKey('countries.country'))
-#     state=db.Column(db.String)
+#     __tablename__ = 'country_states'
+
+#     country_id = db.Column(db.Integer, autoincrement=True,primary_key=True)
+#     date = db.Column(db.DateTime, unique=True)
 #     confirmed = db.Column(db.Integer)
+#     recovered = db.Column(db.Integer)
 #     deaths = db.Column(db.Integer)
-  
+#     country = db.Column(db.String, db.ForeignKey('country_population.country'))
+#     province_state=db.Column(db.String)
+
 #     def __repr__(self):
-#         return f'<state state_id={self.state_id}'
+#         return f'<All_country country_id={self.country_id}'
+
 
 
 def connect_to_db(flask_app, db_uri='postgresql:///covid', echo=True):

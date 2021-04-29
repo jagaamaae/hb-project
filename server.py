@@ -1,7 +1,7 @@
 """Server for covid cases app."""
 from flask import (Flask, render_template, request, flash, session,
                    redirect, jsonify)
-from model import User, Country, CountryStats, connect_to_db
+from model import User, CountryPopulation, CountryStats, connect_to_db
 import crud
 import json
 
@@ -20,56 +20,44 @@ def homepage():
     return render_template("homepage.html")
 
 
-@app.route('/us_cases')
+@app.route('/us')
 def show():
-    return render_template("us_cases.html")
+    return render_template("US.html")
 
 
-@app.route('/us_cases.json')
-def data_us_():
-    with open('./data/us_simplified_json.json','r') as f:
-        country_data = json.loads(f.read())
-        country_data = country_data[0]
-
-    data_dict={}
-    confirmed =[data["Confirmed"] for data in country_data]
-    deaths =[data["Deaths"] for data in country_data]
-    date =[data["Date"] for data in country_data]
+# @app.route('/us.json')
+# def data_us():
+#     us_data = None
+#     with open('./data/us_simplified_json.json','r') as us:
+#         us_data = json.loads(us.read())
 
 
-    data_dict = {
-                 "labels": date,
-                 "datasets": confirmed
-                     [{"label":"confirmed",
-                     "data": confirmed,
-                         "borderColor": "rgba(220,220,220,0.2)",
-                        
-                        "hoverBackgroundColor": 
-                            "#FFF"
-                             
-                     }, 
-                     {"label":"recovered",
-                    #  "data": recovered,
-                         "borderColor": "rgba(220,220,220,0.2)",
-                        
-                        "hoverBackgroundColor": 
-                            "#FFF"
-                              
-                     }, 
-                     {"label":"deaths",
-                     "data": deaths,
-                         "borderColor": "rgba(220,220,220,0.2)",
-                        
-                        "hoverBackgroundColor": 
-                            "#FFF"
-                               
-                     }
+#     confirmed =[data["Confirmed"] for data in us_data][:100]
+#     date =[data["Date"] for data in us_data for data["Province/State"] in us_data ][:100]
+
+#     # date = []
+#     # for data in us_data:
+#     #     for state in data["Province/State"]:
+#     #         date.append(state['Date'])
+
+
+#     data_dict = {
+#                  "labels": date,
+#                  "datasets": 
+#                      [{"label":"confirmed",
+#                      "data": confirmed,
+#                          "borderColor": "rgba(220,220,220,0.2)",                       
+#                         "hoverBackgroundColor": 
+#                             "#FFF"                             
+#                      }
                  
-                     ]
-             }
-    return jsonify(data_dict)
+#                      ]
+#              }
+#     print(data_dict)
+#     # print(data_dict.keys())
+#     return jsonify(data_dict)
 
-    return render_template('us_cases.html')
+#     # return render_template('us_cases.html')
 
 @app.route('/countries')
 def show_countries():
@@ -85,7 +73,7 @@ def show_details(country):
     cases=crud.get_country_cases(country)
     return render_template('country_details.html', cases = cases, population=population, country=country)
 
-@app.route('/most_affected')
+@app.route('/select')
 def show_selector():
     countries = crud.get_countries()
     return render_template('index.html', countries=countries)
