@@ -5,7 +5,7 @@ import unittest
 
 from unittest import TestCase
 from server import app
-from model import connect_to_db, db, example_data
+from model import connect_to_db, db
 from flask import session
 
 
@@ -20,20 +20,31 @@ class FlaskTestsBasic(TestCase):
 
         # Show Flask errors that happen during tests
         app.config['TESTING'] = True
+        app.config['SECRET_KEY'] = 'key'
+
+        connect_to_db(app, "postgresql:///covid")
+
 
     def test_index(self):
         """Test homepage page."""
 
         result = self.client.get("/")
         self.assertIn(b"Welcome!", result.data)
+    
+    def test_logout(self):
+        result = self.client.post("/logout", 
+                                    follow_redirects=True)
+        self.assertIn(b'Logget out', result.data)
 
+    # def test_get_email(self):
+    #     result = self.client.get
     def test_login(self):
         """Test login page."""
 
         result = self.client.post("/login-info",
-                                  data={"email": "test@test.com", "password": "123"},
+                                  data={"email": "user0@test.com", "password": "test"},
                                   follow_redirects=True)
-        self.assertIn(b"logged in", result.data)
+        self.assertIn(b"Logged in", result.data)
 
 
 class FlaskTestsDatabase(TestCase):
@@ -51,7 +62,6 @@ class FlaskTestsDatabase(TestCase):
 
         # Create tables and add sample data
         db.create_all()
-        example_data()
 
     def tearDown(self):
         """Do at end of every test."""
@@ -63,14 +73,14 @@ class FlaskTestsDatabase(TestCase):
     def test_all_countries(self):
         """Test countries page."""
 
-        result = self.client.get("/departments")
-        self.assertIn(b"Legal", result.data)
+        result = self.client.get("/countries")
+        self.assertIn(b"Afghanistan", result.data)
 
     def test_departments_details(self):
         """Test departments page."""
 
-        result = self.client.get("/department/fin")
-        self.assertIn(b"Phone: 555-1000", result.data)
+        result = self.client.get('/countries/<country>.json')
+        self.assertIn(b"confirmed", result.data)
 
 
 class FlaskTestsLoggedIn(TestCase):
@@ -88,10 +98,10 @@ class FlaskTestsLoggedIn(TestCase):
                 sess['user_id'] = 1
 
     def test_important_page(self):
-        """Test important page."""
+        """Test profile page."""
 
-        result = self.client.get("/important")
-        self.assertIn(b"You are a valued user", result.data)
+        result = self.client.get("/users/<email>")
+        self.assertIn(b"logged in", result.data)
 
 
 class FlaskTestsLoggedOut(TestCase):
@@ -104,11 +114,11 @@ class FlaskTestsLoggedOut(TestCase):
         self.client = app.test_client()
 
     def test_important_page(self):
-        """Test that user can't see important page when logged out."""
+        """Test that user can't see logged in page when logged out."""
 
-        result = self.client.get("/important", follow_redirects=True)
-        self.assertNotIn(b"You are a valued user", result.data)
-        self.assertIn(b"You must be logged in", result.data)
+        result = self.client.get("/users/<email>", follow_redirects=True)
+        self.assertNotIn(b"logged in", result.data)
+        # self.assertIn(b"You must be logged in", result.data)
 
 
 class FlaskTestsLogInLogOut(TestCase):  # Bonus example. Not in lecture.
@@ -128,23 +138,23 @@ class FlaskTestsLogInLogOut(TestCase):  # Bonus example. Not in lecture.
 
         with self.client as c:
             result = c.post('/login',
-                            data={'user_id': '42', 'password': 'abc'},
+                            data={'user_id': '1', 'password': 'test'},
                             follow_redirects=True
                             )
-            self.assertEqual(session['user_id'], '42')
-            self.assertIn(b"You are a valued user", result.data)
+            self.assertEqual(session['user_id'], '1')
+            self.assertIn(b"logged in", result.data)
 
     def test_logout(self):
         """Test logout route."""
 
         with self.client as c:
             with c.session_transaction() as sess:
-                sess['user_id'] = '42'
+                sess['user_id'] = '1'
 
             result = self.client.get('/logout', follow_redirects=True)
 
             self.assertNotIn(b'user_id', session)
-            self.assertIn(b'Logged Out', result.data)
+            self.assertIn(b'logged Out', result.data)
 
 class MyAppIntegrationTestCase(unittest.TestCase):
     """testing Flask server."""
@@ -156,7 +166,7 @@ class MyAppIntegrationTestCase(unittest.TestCase):
 
     def test_create_account_form(self):
         client = server.app.test_client()
-        result = client.post('/login', data={'password': 'test'})
+        result = client.post('/login-info', data={'password': 'test'})
         self.assertIn(b'test', result.data)
 
 
@@ -177,6 +187,7 @@ class MyAppIntegrationTestCase2(unittest.TestCase):
         print("(tearDown ran)")
 
     def test_login(self):
+        # this needs to be a post and have email and password and follow redirects
         result = self.client.get('/login-info')
         self.assertIn(b'<h1>Form</h1>', result.data)
 

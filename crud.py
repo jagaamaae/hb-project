@@ -1,4 +1,4 @@
-from model import CountryCapital, db, User,  CountryPopulation,  CountryContinent,  CountryStats, USInfo, USStates, connect_to_db 
+from model import CountryCapital, db, User,  CountryPopulation,  CountryContinent,  CountryStats,  connect_to_db 
 
 
 """CRUD operations."""
@@ -79,25 +79,6 @@ def create_country(date,country,confirmed,recovered, deaths):
 
     return country
 
-
-
-# def create_all_country(date, confirmed, recovered, deaths, country, province_state):
-
-#     all_country = CountryStates(date=date,
-                                 
-#                                  confirmed=confirmed, 
-#                                  recovered=recovered,
-#                                  deaths=deaths,
-#                                  country =country,
-#                                  province_state=province_state
-#                                  )
-
-#     db.session.add(all_country)
-#     db.session.commit()
-
-#     return all_country
-
-
 def get_users():
     """Return all users."""
 
@@ -120,15 +101,22 @@ def get_countries():
 
 def get_population_by_country(country):
     population = CountryPopulation.query.filter(CountryPopulation.country == country).first().population
-    return population
+    capital = CountryCapital.query.filter(CountryCapital.country==country).first().capital
+    continent = CountryContinent.query.filter(CountryContinent.country ==country).first().continent
+    return population, capital, continent
 
 def get_country_cases(country):
     cases = CountryStats.query.filter(CountryStats.country==country).all()
     return cases
 
-def get_countries_North_(country):
-    cases = CountryStats.query.filter(CountryStats.country==country).all().first().continent=="Asia"
-    return cases
+def get_continent(country):
+    north_america = CountryStats.query.filter(CountryContinent.country==country).first().continent=="North America"
+    south_america = CountryStats.query.filter(CountryContinent.country==country).first().continent=="South America"
+    europe = CountryStats.query.filter(CountryContinent.country==country).first().continent=="Europe"
+    asia= CountryStats.query.filter(CountryContinent.country==country).first().continent=="Asia"
+    oceania = CountryStats.query.filter(CountryContinent.country==country).first().continent=="Oceania"
+    africa = CountryStats.query.filter(CountryContinent.country==country).first().continent=="Africa"
+    return north_america, europe, asia, south_america, oceania, africa
 
 if __name__ == '__main__':
     from server import app
