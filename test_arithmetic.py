@@ -7,7 +7,7 @@ class AdderTestCase(unittest.TestCase):
     """Examples of unit tests: discrete code testing."""
 
     def test_crud(self):
-        assert crud.get_users == 
+        # assert crud.get_users == 
 
     def test_crud(self):
         self.assertEqual(crud.get_users(2, 2), 4)
