@@ -37,20 +37,20 @@ for n in range(10):
 
 #     us_data_objects = []
 #     for data in us_data:
-#         date, country, county, state, confirmed,  deaths = (  
+#         date, country, county, state, confirmed = (  
 #                                     datetime.strptime(data['Date'], '%Y-%m-%d'), 
 #                                     data["Country/Region"],
-                                    # data["Admin2"],
+#                                     data["Admin2"],
 #                                     data["Province/State"],
-#                                     data["Confirmed"], 
-#                                     data['Deaths'] )
+#                                     data['Confirmed']
+#                                      )
 
 #         db_us = crud.create_us(date,
 #                                  country,
-#                                  state,
 #                                  county,
-#                                  confirmed, 
-#                                  deaths)
+#                                  state,
+#                                  confirmed)
+
 #         us_data_objects.append(db_us)
 
 

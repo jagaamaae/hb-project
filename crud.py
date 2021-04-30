@@ -1,4 +1,4 @@
-from model import CountryCapital, db, User,  CountryPopulation,  CountryContinent,  CountryStats, connect_to_db 
+from model import CountryCapital, db, User,  CountryPopulation,  CountryContinent,  CountryStats, USInfo, USStates, connect_to_db 
 
 
 """CRUD operations."""
@@ -15,27 +15,27 @@ def create_user(email, password):
 
     return user
 
-# def create_states(state, population, capital):
-#     state = USInfo(state=state, population=population, capital=capital)
+def create_states(state, population, capital):
+    state = USInfo(state=state, population=population, capital=capital)
 
-#     db.session.add(state)
-#     db.session.commit()
+    db.session.add(state)
+    db.session.commit()
 
-#     return state
+    return state
 
 
-# def create_us(date, country, state, confirmed, deaths ):
+def create_us(date, country, county, state, confirmed):
 
-#     us = USStates (date=date,
-#                                  country=country,
-#                                  state=state, 
-#                                  confirmed=confirmed, 
-#                                  deaths=deaths)
+    us = USStates (date=date,
+                                 country=country,
+                                 county=county,
+                                 state=state, 
+                                 confirmed=confirmed)
 
-#     db.session.add(us)
-#     db.session.commit()
+    db.session.add(us)
+    db.session.commit()
 
-#     return us
+    return us
 
 
 def create_reference(country,  population):

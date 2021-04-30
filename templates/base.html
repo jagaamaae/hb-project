@@ -19,7 +19,7 @@
   <!-- Static navbar -->
   <nav class="navbar navbar-expand-lg navbar-dark">
 
-    <a id="ubermelon-logo" class="navbar-brand" href="/countries">All Countries</a>
+    <a id="all-countries" class="navbar-brand" href="/countries">All Countries</a>
 
     <!-- Make navbar toggleable for small devices -->
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -29,12 +29,15 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
       <ul class="navbar-nav mr-auto">
+
         <li class="nav-item">
           <a class="nav-link" href="/us">US Data</a>
         </li>
+
         <li class="nav-item">
           <a class="nav-link" href="/select">Select a country</a>
         </li>
+
         <li class="nav-item">
           <a class="nav-link" href="#">Contact</a>
         </li>
@@ -42,39 +45,13 @@
 
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
-          <a class="nav-link" href="login-info" data-toggle="modal" data-target="#exampleModal">Login</a>
-        </li>
-
-          <!-- Login Modal -->
-          <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="modalLabel"> Logout</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="modal-body">
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                  
-                    {% if "email" in session %}
-                    <form action="/logout" method="POST"></form>
-                    <button type='submit' id="signIn" class="btn btn-primary">Logout</button>
-                    {% else %}
-                    <form action="/login-info" method="POST"></form>
-                    <button type='submit' id="signIn" class="btn btn-primary">Login</button>
-                    {% endif %}
-                   
-                    <!-- <script>
+          <a class="nav-link" href="login-info" data-toggle="modal" data-target="#exampleModal"><button type="button" id='signIn' class='signInText'>Login</button></a>
+           <script>
                     "use strict";
-                      let button = document.querySelector('#signIn');
-                  
+                      let button = document.querySelector('#signIn');           
                       function changeText() {
-                        if (button.innerHTML === 'Logout') {
-                          button.innerHTML = 'Login';
+                        if (button.innerHTML === 'Login') {
+                          button.innerHTML = 'Logout';
                         }
                         else if (button.innerHTML === 'Logout') {
                           button.innerHTML = 'Login';
@@ -82,8 +59,40 @@
                     }
                   
                       signIn.addEventListener('click', changeText);
-                    </script> -->
-                  </form>
+                    </script>
+        </li>
+
+          <!-- Login Modal -->
+          <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="modalLabel"> Close if you change your mind</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                </div>
+                <div class="modal-footer">
+                  
+                  
+                    {% if "email" in session %}
+                    <form action="/logout" method="POST"> 
+                      <button type='submit' id="signOut" class="btn btn-primary">Logout</button></form>           
+                    {% else %}
+                    <form action="/login-info" method="POST"> 
+                      <p>
+                        Email <input type="text" name="email">
+                      </p>        
+                      <p>
+                        Password <input type="password" name="password">
+                      </p>
+                      <button type='submit' id="signIn" class="btn btn-primary">Login</button></form>
+
+                    {% endif %}
+                    </form>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                   
                   
                 </div>
@@ -94,16 +103,12 @@
 
         <!-- Settings Dropdown -->
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Profile
-          </a>
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Profile</a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            {% if "email" in session %}
-            <a class="dropdown-item" href='/users/<email>'>Your Profile</a>
-
-              {% endif %}
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">Settings</a>
+            {% if "email" in session %}
+            <a class="dropdown-item" href='/users/{{session.email}}'>Your Profile</a>
+            {% endif %}
           </div>
         </li>
         <!-- End dropdown -->

@@ -20,31 +20,31 @@ class User(db.Model):
     def __repr__(self):
         return f'<User user_id={self.user_id} email={self.email}>'
 
-# class USInfo(db. Model):
-#     __tablename__ = 'state_info'
-#     state = db.Column(db.String, primary_key=True)
-#     population= db.Column(db.Integer)
-#     capital = db.Column(db.String)
+class USInfo(db. Model):
+    __tablename__ = 'state_info'
+    state = db.Column(db.String, primary_key=True)
+    population= db.Column(db.Integer)
+    capital = db.Column(db.String)
 
-#     us_state_rel = db.relationship("USStates", backref='USInfo')
+    us_state_rel = db.relationship("USStates", backref='USInfo')
 
-#     def __repr__(self):
-#         return f'<state state_id={self.state_id}'
+    def __repr__(self):
+        return f'<state state_id={self.state}'
 
 
-# class USStates(db.Model):
+class USStates(db.Model):
 
-#     __tablename__ = 'us_states'
-#     state_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-#     date = db.Column(db.DateTime)
-#     country= db.Column(db.String)
-#     state=db.Column(db.String, db.ForeignKey('state_info.state'))
-#     confirmed = db.Column(db.Integer)
-#     deaths = db.Column(db.Integer)
-  
-#     def __repr__(self):
-#         return f'<state state_id={self.state_id}'
+    __tablename__ = 'us_states'
     
+    date = db.Column(db.DateTime)
+    country= db.Column(db.String, primary_key=True)
+    county = db.Column(db.String)
+    state=db.Column(db.String, db.ForeignKey('state_info.state'))
+    confirmed = db.Column(db.Integer)
+   
+  
+    def __repr__(self):
+        return f'<state state_id={self.country}'
 
 class CountryPopulation(db.Model):
     __tablename__ = 'country_population'

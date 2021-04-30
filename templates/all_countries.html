@@ -17,26 +17,6 @@
 {% block body %}
 <h1>All countries</h1>
 
-<form action="/logout" method="POST">
-
-  <button id='signIn' class='signInText'>Log Out</button>
-  <script>
-  "use strict";
-    let button = document.querySelector('#signIn');
-
-    function changeText() {
-      if (button.innerHTML === 'Log In') {
-        button.innerHTML = 'Log Out';
-      }
-      else if (button.innerHTML === 'Log Out') {
-        button.innerHTML = 'Log In';
-    }
-  }
-
-    signIn.addEventListener('click', changeText);
-  </script>
-</form>
-
 <ul>
   {% for country in countries %}
 
