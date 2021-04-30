@@ -74,9 +74,7 @@
                 </div>
                 <div class="modal-body">
                 </div>
-                <div class="modal-footer">
-                  
-                  
+                <div class="modal-footer">        
                     {% if "email" in session %}
                     <form action="/logout" method="POST"> 
                       <button type='submit' id="signOut" class="btn btn-primary">Logout</button></form>           
@@ -89,12 +87,9 @@
                         Password <input type="password" name="password">
                       </p>
                       <button type='submit' id="signIn" class="btn btn-primary">Login</button></form>
-
                     {% endif %}
                     </form>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                  
-                  
                 </div>
               </div>
             </div>
