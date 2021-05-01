@@ -103,7 +103,7 @@ def get_countries():
     """Return all countries."""
     return CountryPopulation.query.all()
 
-def get_population_info(country):
+def get_population_by_country(country):
     population = CountryPopulation.query.filter(CountryPopulation.country == country).first().population
     capital = CountryCapital.query.filter(CountryCapital.country==country).first().capital
     continent = CountryContinent.query.filter(CountryContinent.country ==country).first().continent
