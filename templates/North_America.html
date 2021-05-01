@@ -1,12 +1,13 @@
 {% extends 'base.html' %}
 <head>
-  <title></title>
+  <title>{% block title %}{{ country }} - Details{% endblock %}</title>
 </head>
 
 {% block body %}
 
-<h1>Asia</h1>
+<h1>{{ country}}</h1>
 <p>
+  Population is {{ population }}
 </p>
 
 <div class="line-chart">
@@ -14,24 +15,28 @@
   <div id="lineLegend" class="chart-legend"></div>
 </div>
 
-  <script>
-    const options = {
-        responsive: true
-      };
-  
-      let ctx_line = $("#lineChart").get(0).getContext("2d");
-  
-      $.get("/us_cases.json", function (data) {
-      console.log(data)
-      
-      let myLineChart = Chart.Line(ctx_line, {
-                                  data: data,
-                                  type: "line",
-                                  options: options
-                              });
-      $("#lineLegend").html(myLineChart.generateLegend());
-      });
-      </script>
+  <script src="/static/js/chartsJs.js"></script>
 
 
+<h2> COVID cases </h3>
+  <table style = "width:60%">
+
+  <tr>
+    <th>Date</th>
+    <th>Confirmed </th>
+    <th>Recovered </th>
+    <th>Deaths</th>
+  </tr>
+  {% for case in cases %}
+  <tr>
+   
+    <td> {{case.date}}</td>
+    <td> {{case.confirmed}}</td>
+    <td>{{case.recovered}}</td>
+    <td>{{case.deaths}}</td>
+    
+  </tr>
+  {% endfor %}
+ 
+</table>
  {% endblock %}

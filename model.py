@@ -43,8 +43,8 @@ class User(db.Model):
 #     confirmed = db.Column(db.Integer)
    
   
-    def __repr__(self):
-        return f'<state state_id={self.country}'
+#     def __repr__(self):
+#         return f'<state state_id={self.country}'
 
 class CountryPopulation(db.Model):
     __tablename__ = 'country_population'

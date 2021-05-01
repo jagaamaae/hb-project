@@ -19,45 +19,45 @@ def homepage():
         return redirect('/countries')
     return render_template("homepage.html")
 
+@app.route('/europe')
+def show_eu():
+    countries = crud.get_continent(country)
+    with open('./data/reversed.json','r') as f:
+        flags = json.loads(f.read())
+        flags=flags[0]
+    return render_template('Europe.html', countries=countries, flags=flags)
 
-@app.route('/us')
-def show():
-    return render_template("US.html")
+@app.route('/asia')
+def show_asia():
+    countries = crud.get_continent()
+    with open('./data/reversed.json','r') as f:
+        flags = json.loads(f.read())
+        flags=flags[0]
+    return render_template("Asia.html", countries=countries, flags=flags)
 
+@app.route('/north_america')
+def show_noth_america(): 
+    countries = crud.get_continent(europe)
+    with open('./data/reversed.json','r') as f:
+        flags = json.loads(f.read())
+        flags=flags[0]
+    return render_template("North_America.html", countries=countries, flags=flags)
 
-# @app.route('/us.json')
-# def data_us():
-#     us_data = None
-#     with open('./data/us_simplified_json.json','r') as us:
-#         us_data = json.loads(us.read())
+@app.route('/africa')
+def show_africa():
+    countries = crud.get_continent()
+    with open('./data/reversed.json','r') as f:
+        flags = json.loads(f.read())
+        flags=flags[0]
+    return render_template("Africa.html", countries=countries, flags=flags)
 
-
-#     confirmed =[data["Confirmed"] for data in us_data][:100]
-#     date =[data["Date"] for data in us_data for data["Province/State"] in us_data ][:100]
-
-#     # date = []
-#     # for data in us_data:
-#     #     for state in data["Province/State"]:
-#     #         date.append(state['Date'])
-
-
-#     data_dict = {
-#                  "labels": date,
-#                  "datasets": 
-#                      [{"label":"confirmed",
-#                      "data": confirmed,
-#                          "borderColor": "rgba(220,220,220,0.2)",                       
-#                         "hoverBackgroundColor": 
-#                             "#FFF"                             
-#                      }
-                 
-#                      ]
-#              }
-#     print(data_dict)
-#     # print(data_dict.keys())
-#     return jsonify(data_dict)
-
-#     # return render_template('us_cases.html')
+@app.route('/oceania')
+def show_oceania():
+    countries = crud.get_continent()
+    with open('./data/reversed.json','r') as f:
+        flags = json.loads(f.read())
+        flags=flags[0]
+    return render_template("Oceania.html", countries=countries, flags=flags)
 
 @app.route('/countries')
 def show_countries():
@@ -69,7 +69,9 @@ def show_countries():
 
 @app.route('/countries/<country>')
 def show_details(country):
-    population=crud.get_population_by_country(country)
+    population=crud.get_population_info(country)
+    capital =crud.get_population_info(country)
+    continent =crud.get_population_info(country)
     cases=crud.get_country_cases(country)
     return render_template('country_details.html', cases = cases, population=population, country=country)
 

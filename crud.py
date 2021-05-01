@@ -15,27 +15,27 @@ def create_user(email, password):
 
     return user
 
-def create_states(state, population, capital):
-    state = USInfo(state=state, population=population, capital=capital)
+# def create_states(state, population, capital):
+#     state = USInfo(state=state, population=population, capital=capital)
 
-    db.session.add(state)
-    db.session.commit()
+#     db.session.add(state)
+#     db.session.commit()
 
-    return state
+#     return state
 
 
-def create_us(date, country, county, state, confirmed):
+# def create_us(date, country, county, state, confirmed):
 
-    us = USStates (date=date,
-                                 country=country,
-                                 county=county,
-                                 state=state, 
-                                 confirmed=confirmed)
+#     us = USStates (date=date,
+#                                  country=country,
+#                                  county=county,
+#                                  state=state, 
+#                                  confirmed=confirmed)
 
-    db.session.add(us)
-    db.session.commit()
+#     db.session.add(us)
+#     db.session.commit()
 
-    return us
+#     return us
 
 
 def create_reference(country,  population):
@@ -94,12 +94,16 @@ def get_user_by_email(email):
     """Return a user by email."""
     return User.query.filter(User.email == email).first()
 
+def get_eu_countries(country):
+    """Return eu countries."""
+    eu_countries= CountryContinent.query.filter(CountryContinent.country==country).first().continent=="Europe"
+    return eu_countries
 
 def get_countries():
     """Return all countries."""
     return CountryPopulation.query.all()
 
-def get_population_by_country(country):
+def get_population_info(country):
     population = CountryPopulation.query.filter(CountryPopulation.country == country).first().population
     capital = CountryCapital.query.filter(CountryCapital.country==country).first().capital
     continent = CountryContinent.query.filter(CountryContinent.country ==country).first().continent
@@ -110,12 +114,12 @@ def get_country_cases(country):
     return cases
 
 def get_continent(country):
-    north_america = CountryStats.query.filter(CountryContinent.country==country).first().continent=="North America"
-    south_america = CountryStats.query.filter(CountryContinent.country==country).first().continent=="South America"
-    europe = CountryStats.query.filter(CountryContinent.country==country).first().continent=="Europe"
-    asia= CountryStats.query.filter(CountryContinent.country==country).first().continent=="Asia"
-    oceania = CountryStats.query.filter(CountryContinent.country==country).first().continent=="Oceania"
-    africa = CountryStats.query.filter(CountryContinent.country==country).first().continent=="Africa"
+    north_america = CountryContinent.query.filter(CountryContinent.country==country).first().continent=="North America"
+    south_america = CountryContinent.query.filter(CountryContinent.country==country).first().continent=="South America"
+    europe= CountryContinent.query.filter(CountryContinent.country==country).first().continent=="Europe"
+    asia= CountryContinent.query.filter(CountryContinent.country==country).first().continent=="Asia"
+    oceania = CountryContinent.query.filter(CountryContinent.country==country).first().continent=="Oceania"
+    africa = CountryContinent.query.filter(CountryContinent.country==country).first().continent=="Africa"
     return north_america, europe, asia, south_america, oceania, africa
 
 if __name__ == '__main__':

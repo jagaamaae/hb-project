@@ -11,3 +11,4 @@ form.on('submit', (evt) => {
         $('.link').attr("href", `/countries/${country}`)
       });
   });
+
