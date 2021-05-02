@@ -95,7 +95,6 @@ def get_details(country):
 @app.route("/about")
     return render_template("/about.html")
    
-
 @app.route('/get-email')
 def get_user():
     user = request.args.get("email")
