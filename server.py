@@ -89,6 +89,13 @@ def get_details(country):
 
     # return redirect(f'/countries/{country.lstrip()}')
 
+@app.route("/contact")
+    return render_template("/contact.html")
+
+@app.route("/about")
+    return render_template("/about.html")
+   
+
 @app.route('/get-email')
 def get_user():
     user = request.args.get("email")
