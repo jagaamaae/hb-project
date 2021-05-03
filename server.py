@@ -21,7 +21,7 @@ def homepage():
 
 @app.route('/europe')
 def show_eu():
-    countries = crud.get_continent(country)
+    countries = crud.get_continent()
     with open('./data/reversed.json','r') as f:
         flags = json.loads(f.read())
         flags=flags[0]
@@ -37,7 +37,7 @@ def show_asia():
 
 @app.route('/north_america')
 def show_noth_america(): 
-    countries = crud.get_continent(europe)
+    countries = crud.get_continent(country="North America")
     with open('./data/reversed.json','r') as f:
         flags = json.loads(f.read())
         flags=flags[0]
@@ -69,11 +69,11 @@ def show_countries():
 
 @app.route('/countries/<country>')
 def show_details(country):
-    population=crud.get_population_info(country)
-    capital =crud.get_population_info(country)
-    continent =crud.get_population_info(country)
+    population=crud.get_country_info(country)
+    capital =crud.get_country_info(country)
+    continent =crud.get_country_info(country)
     cases=crud.get_country_cases(country)
-    return render_template('country_details.html', cases = cases, population=population, country=country)
+    return render_template('country_details.html', cases = cases, population=population, country=country,capital=capital, continent=continent)
 
 @app.route('/select')
 def show_selector():
@@ -82,7 +82,7 @@ def show_selector():
 
 @app.route('/most_affected_details/<country>')
 def get_details(country):
-    population = crud.get_population_by_country(country.lstrip())
+    population = crud.get_country_info(country.lstrip())
     print(country)
     print(population)
     return jsonify({'country': country, 'population': population})
@@ -90,9 +90,11 @@ def get_details(country):
     # return redirect(f'/countries/{country.lstrip()}')
 
 @app.route("/contact")
+def show_contact():
     return render_template("/contact.html")
 
 @app.route("/about")
+def show_about():
     return render_template("/about.html")
    
 @app.route('/get-email')
