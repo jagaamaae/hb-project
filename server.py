@@ -1,7 +1,7 @@
 """Server for covid cases app."""
 from flask import (Flask, render_template, request, flash, session,
                    redirect, jsonify)
-from model import User, CountryPopulation, CountryStats, connect_to_db
+from model import CountryContinent, User, CountryPopulation, CountryStats, connect_to_db
 import crud
 import json
 
@@ -82,7 +82,7 @@ def show_selector():
 
 @app.route('/most_affected_details/<country>')
 def get_details(country):
-    population = crud.get_country_info(country.lstrip())
+    population = crud.get_country_population(country.lstrip())
     print(country)
     print(population)
     return jsonify({'country': country, 'population': population})

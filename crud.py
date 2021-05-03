@@ -115,28 +115,28 @@ def get_country_continent(country):
     continent = CountryContinent.query.filter(CountryContinent.country==country).first().continent
     return continent
 
-def get_north_america(country):
-    countries = CountryContinent.query.filter_by(country=country).filter(CountryContinent.continent=="North America").first()
+def get_north_america():
+    countries = CountryContinent.query.filter(CountryContinent.continent=="North America").all()
     return countries
 
-def get_south_america(country):
-    countries = CountryContinent.query.filter_by(country=country).filter(CountryContinent.continent=="South America").first()
+def get_south_america():
+    countries = CountryContinent.query.filter(CountryContinent.continent=="South America").all()
     return countries
 
-def get_europe(country):
-    countries = south_america = CountryContinent.query.filter_by(country=country).filter(CountryContinent.continent=="Europe").first()
+def get_europe():
+    countries = CountryContinent.query.filter(CountryContinent.continent=="Europe").all()
     return countries
 
-def get_asia(country):
-    countries = south_america = CountryContinent.query.filter_by(country=country).filter(CountryContinent.continent=="Asia").first()
+def get_asia():
+    countries = CountryContinent.query.filter(CountryContinent.continent=="Asia").all()
     return countries
 
-def get_oceania(country):
-    countries = south_america = CountryContinent.query.filter_by(country=country).filter(CountryContinent.continent=="Oceania").first()
+def get_oceania():
+    countries = CountryContinent.query.filter(CountryContinent.continent=="Asia").all()
     return countries
 
-def get_africa(country):
-    countries = south_america = CountryContinent.query.filter_by(country=country).filter(CountryContinent.continent=="Africa").first()
+def get_africa():
+    countries = CountryContinent.query.filter(CountryContinent.continent=="Africa").all()
     return countries
 
 if __name__ == '__main__':

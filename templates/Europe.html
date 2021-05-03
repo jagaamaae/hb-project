@@ -1,51 +1,23 @@
 {% extends 'base.html' %}
 
-{% block title %}
-<style>
-  img{
-    border: solid black 2px;
-    height: 200 ;
-  }
-  /* div {display:flex;
-  flex-direction:column;
-  flex-wrap:wrap;
-  } */
-</style>
-
-{% endblock %}
-
 {% block body %}
-<h1>All countries</h1>
+<h1>Europe</h1>
+<div class="container">
+<div class="row">
 
-<ul>
   {% for country in countries %}
 
-  <li>
-  <div>
+ 
+  <div class ="flag-container col-4" >
     <a href="/countries/{{country.country}}">
   <p>{{country.country}}</p>
 
-  <img title="{{country.country}}" src="/static/img/{{flags.get(country.country)}}.png">
+  <img class='flags' title="{{country.country}}" src="/static/img/{{flags.get(country.country)}}.png">
 </div>
-</li>
 
   {% endfor %}
-</ul>
 
-<!-- <div class="hint">
-  <div> -->
-<!-- 
-  {% for country in countries %}
-  <a href="/countries/{{country.country}}"></a>
-  {{country.country}}
- 
-  <img title="{{country.country}}" src="/static/img/{{flags.get(country.country)}}.png">
-  
-  {% endfor %} -->
-<!-- 
 </div>
-</div> -->
-
-
+</div>
 
 {% endblock body %}

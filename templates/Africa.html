@@ -1,42 +1,23 @@
 {% extends 'base.html' %}
-<head>
-  <title>{% block title %}{{ country }} - Details{% endblock %}</title>
-</head>
 
 {% block body %}
+<h1>Africa</h1>
+<div class="container">
+<div class="row">
 
-<h1>{{ country}}</h1>
-<p>
-  Population is {{ population }}
-</p>
+  {% for country in countries %}
 
-<div class="line-chart">
-  <canvas id="lineChart"></canvas>
-  <div id="lineLegend" class="chart-legend"></div>
+ 
+  <div class ="flag-container col-4" >
+    <a href="/countries/{{country.country}}">
+  <p>{{country.country}}</p>
+
+  <img class='flags' title="{{country.country}}" src="/static/img/{{flags.get(country.country)}}.png">
 </div>
 
-  <script src="/static/js/chartsJs.js"></script>
-
-
-<h2> COVID cases </h3>
-  <table style = "width:60%">
-
-  <tr>
-    <th>Date</th>
-    <th>Confirmed </th>
-    <th>Recovered </th>
-    <th>Deaths</th>
-  </tr>
-  {% for case in cases %}
-  <tr>
-   
-    <td> {{case.date}}</td>
-    <td> {{case.confirmed}}</td>
-    <td>{{case.recovered}}</td>
-    <td>{{case.deaths}}</td>
-    
-  </tr>
   {% endfor %}
- 
-</table>
- {% endblock %}
+
+</div>
+</div>
+
+{% endblock body %}
