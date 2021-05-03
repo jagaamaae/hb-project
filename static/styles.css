@@ -20,7 +20,6 @@ fieldset {
 .prime-circle {
   color: white;
   border-radius: 50%;
-  box-shadow: 3px 3px 10px #666;
   width: 3em;
   padding: 1em 0;
   text-align: center;
