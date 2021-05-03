@@ -21,7 +21,7 @@ def homepage():
 
 @app.route('/europe')
 def show_eu():
-    countries = crud.get_continent()
+    countries = crud.get_europe()
     with open('./data/reversed.json','r') as f:
         flags = json.loads(f.read())
         flags=flags[0]
@@ -29,7 +29,7 @@ def show_eu():
 
 @app.route('/asia')
 def show_asia():
-    countries = crud.get_continent()
+    countries = crud.get_asia()
     with open('./data/reversed.json','r') as f:
         flags = json.loads(f.read())
         flags=flags[0]
@@ -37,7 +37,7 @@ def show_asia():
 
 @app.route('/north_america')
 def show_noth_america(): 
-    countries = crud.get_continent(country="North America")
+    countries = crud.get_north_america()
     with open('./data/reversed.json','r') as f:
         flags = json.loads(f.read())
         flags=flags[0]
@@ -45,7 +45,7 @@ def show_noth_america():
 
 @app.route('/africa')
 def show_africa():
-    countries = crud.get_continent()
+    countries = crud.get_africa()
     with open('./data/reversed.json','r') as f:
         flags = json.loads(f.read())
         flags=flags[0]
@@ -53,7 +53,7 @@ def show_africa():
 
 @app.route('/oceania')
 def show_oceania():
-    countries = crud.get_continent()
+    countries = crud.get_oceania()
     with open('./data/reversed.json','r') as f:
         flags = json.loads(f.read())
         flags=flags[0]
@@ -69,9 +69,9 @@ def show_countries():
 
 @app.route('/countries/<country>')
 def show_details(country):
-    population=crud.get_country_info(country)
-    capital =crud.get_country_info(country)
-    continent =crud.get_country_info(country)
+    population=crud.get_country_population(country)
+    capital =crud.get_country_capital(country)
+    continent =crud.get_country_continent(country)
     cases=crud.get_country_cases(country)
     return render_template('country_details.html', cases = cases, population=population, country=country,capital=capital, continent=continent)
 

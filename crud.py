@@ -103,20 +103,41 @@ def get_country_cases(country):
     cases = CountryStats.query.filter(CountryStats.country==country).all()
     return cases
 
-def get_country_info(country):
+def get_country_population(country):
     population = CountryPopulation.query.filter(CountryPopulation.country == country).first().population
-    capital = CountryCapital.query.filter(CountryCapital.country==country).first().capital
-    continent = CountryContinent.query.filter(CountryContinent.country ==country).first().continent
-    return population, capital, continent
+    return population
 
-def get_continent(country):
-    north_america = CountryContinent.query.filter_by(country=country).filter(CountryContinent.continent == "North America").first()
-    south_america = CountryContinent.query.filter_by(country=country).filter(CountryContinent.continent == "South America").first()
-    europe= CountryContinent.query.filter_by(country=country).filter(CountryContinent.continent == "Europe").first()
-    asia= CountryContinent.query.filter_by(country=country).filter(CountryContinent.continent == "Asia").first()
-    oceania = CountryContinent.query.filter_by(country=country).filter(CountryContinent.continent =="Oceania").first()
-    africa = CountryContinent.query.filter_by(country=country).filter(CountryContinent.continent == "Africa").first()
-    return north_america, europe, asia, south_america, oceania, africa
+def get_country_capital(country):
+    capital = CountryCapital.query.filter(CountryCapital.country==country).first().capital
+    return capital
+
+def get_country_continent(country):
+    continent = CountryContinent.query.filter(CountryContinent.country==country).first().continent
+    return continent
+
+def get_north_america(country):
+    countries = CountryContinent.query.filter_by(country=country).filter(CountryContinent.continent=="North America").first()
+    return countries
+
+def get_south_america(country):
+    countries = CountryContinent.query.filter_by(country=country).filter(CountryContinent.continent=="South America").first()
+    return countries
+
+def get_europe(country):
+    countries = south_america = CountryContinent.query.filter_by(country=country).filter(CountryContinent.continent=="Europe").first()
+    return countries
+
+def get_asia(country):
+    countries = south_america = CountryContinent.query.filter_by(country=country).filter(CountryContinent.continent=="Asia").first()
+    return countries
+
+def get_oceania(country):
+    countries = south_america = CountryContinent.query.filter_by(country=country).filter(CountryContinent.continent=="Oceania").first()
+    return countries
+
+def get_africa(country):
+    countries = south_america = CountryContinent.query.filter_by(country=country).filter(CountryContinent.continent=="Africa").first()
+    return countries
 
 if __name__ == '__main__':
     from server import app
