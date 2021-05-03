@@ -2,7 +2,7 @@
 
 .navbar {
 	background-color: #b4c157;
-	color: white;
+	color: rgb(100, 99, 99);
 	border-radius: 0px;
 }
 
@@ -11,7 +11,7 @@
 }
 
 .navbar-nav>li>a, .navbar-dark .navbar-nav .nav-link {
-	color: white;
+	color: rgb(85, 81, 81);
 }
 
 section {
