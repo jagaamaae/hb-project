@@ -50,10 +50,6 @@
         <li class="nav-item">
           <a class="nav-link" href="/africa">Africa</a>
         </li>
-
-        <li class="nav-item">
-          <a class="nav-link" href="/select">Select a country</a>
-        </li>
       <li class="nav-item">
         <a class="nav-link" href="/about">About</a>
       </li>
@@ -77,6 +73,24 @@
                       signIn.addEventListener('click', changeText);
                     </script>
         </li>
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="login-info" data-toggle="modal" data-target="#exampleModal"><button type="button" id='signIn' class='signInText'>Login</button></a>
+             <script>
+                      "use strict";
+                        let button = document.querySelector('#signIn');           
+                        function changeText() {
+                          if (button.innerHTML === 'Logout') {
+                            button.innerHTML = 'Login';
+                          }
+                          else if (button.innerHTML === 'Login') {
+                            button.innerHTML = 'Logout';
+                        }
+                      }
+                    
+                        signIn.addEventListener('click', changeText);
+                      </script>
+          </li>
 
           <!-- Login Modal -->
           <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
@@ -114,10 +128,12 @@
 
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Profile
+          Settings
         </a>
         
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="/select">Select a country</a>
+            
             {% if "email" in session %}
             <a class="dropdown-item" href='/users/{{session.email}}'>Your Profile</a>
             {% endif %}
@@ -139,12 +155,21 @@
 
   </nav>
 
+  <div>
+    {% for msg in get_flashed_messages()%}
+    <p class ="flash-msg%">
+      {{msg}}
+    </p>
+    {% endfor %}
+    {% block body %}{% endblock %}
+  </div>
+
   <!-- It's container-fluid so it spans the entire page. -->
   <div class="container-fluid">
     <!-- Begin centered main text -->
       <div class="row align-items-center">
-        <section class="col-6 mx-auto" id="splash">
-          <!-- <img class="img-fluid center-block" alt="Image of melon" id="hero"> -->
+        <section class="col-12 mx-auto" id="splash">
+          <img src="/static/img/un_flags.jpg" class="img-fluid center-block" alt="Image of flags" id="hero">
           <p>We deliver COVID related charts on time<p>
         </section>
     </div>
@@ -180,15 +205,7 @@
     </div>
     <!-- End of three feature columns -->
     </div>
-  <div>
-    {% for msg in get_flashed_messages()%}
-    <p class ="flash-msg%">
-      {{msg}}
-
-    </p>
-    {% endfor %}
-    {% block body %}{% endblock %}
-  </div>
+ 
 </body>
 </html>
 

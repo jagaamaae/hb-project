@@ -3,5 +3,7 @@
 {% block title %}{{ user.email}} - Details{% endblock %}
 
 {% block body %}
-<h1>{{ user.email }} email is logged in</h1>
+<h1>Your profile</h1>
+<h2> Username : {{ user.email }} </h2>
+<h2> Password: {{user.password}}</h2>
 {% endblock %}
