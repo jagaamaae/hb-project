@@ -192,6 +192,12 @@ def data_dictionary(country):
              }
     return jsonify(data_dict)
 
+@app.route('/logged-in')
+def is_logged_in():
+    
+    return jsonify({'data': session.get('email')})
+
+
 
 
 if __name__ == '__main__':

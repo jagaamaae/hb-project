@@ -63,20 +63,20 @@
 
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
-          <a class="nav-link" href="login-info" data-toggle="modal" data-target="#exampleModal"><button type="button" id='signIn' class='signInText'>Login</button></a>
+          <a class="nav-link" data-toggle="modal" data-target="#exampleModal"><button type="button" id='signIn' class='signInText'>Login</button></a>
            <script>
                     "use strict";
-                      let button = document.querySelector('#signIn');           
+                     
+                      let button = document.querySelector('#signIn');       
                       function changeText() {
-                        if (button.innerHTML === 'Logout') {
-                          button.innerHTML = 'Login';
-                        }
-                        else if (button.innerHTML === 'Login') {
-                          button.innerHTML = 'Logout';
+                        fetch('/logged-in')
+                        .then((response) => response.json())
+                        .then((result) => {console.log(result); return result})
+                        .then((result) => result.data !== null ? button.innerHTML = 'Logout' : button.innerHTML = 'Login')  
                       }
-                    }
                   
-                      signIn.addEventListener('click', changeText);
+                      document.addEventListener("DOMContentLoaded", changeText)
+                      // signIn.addEventListener('click', changeText);
                     </script>
       
         </li>
@@ -115,17 +115,17 @@
       <ul class="navbar-nav ml-auto">
       
           <li class="nav-item">
-            <a class="nav-link" href="login-info" data-toggle="modal" data-target="#exampleModal"><button type="button" id='signIn' class='signInText'>Account</button></a>
+            <a class="nav-link" data-toggle="registermodal" data-target="#register-modal">Account</a>
           </li>
           
   
             <!-- Account Modal -->
-            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+            <div class="modal fade" id="register-modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
               <div class="modal-dialog" role="document">
                 <div class="modal-content">
                   <div class="modal-header">
   
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <button type="button" class="close" data-dismiss="registermodal" aria-label="Close">
                       <span aria-hidden="true">&times;</span>
                     </button>
                   </div>
