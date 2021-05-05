@@ -1,9 +1,49 @@
 {% extends 'base.html' %}
 
+{% block title %}
+
+{% endblock %}
+
 {% block body %}
-<h1>Africa</h1>
+
 <div class="container">
 <div class="row">
+
+  <section id="description">
+      <h1>Select a country</h1>
+    </section>
+
+    <section id="select-country">
+
+      <form id="get-country">
+      
+        <label for="country-id">
+
+        </label>
+        <select id="country-id" name="country-id">
+          <option value="">Choose an country</option>
+          {% for country in countries %}
+            <option value="{{country.country}}"> {{country.country}} </option>
+          {% endfor %}
+        </select>
+        <input type="submit">
+      </form>
+    </section>
+
+    <section id="display-country">
+      <h3>Country Information</h3>
+      <dl>
+        <p>
+        <dt>Country Name</dt>
+        <dd id="country"></dd>
+          </p>
+        <dt>Population</dt>
+        <dd id="population"></dd>  
+        
+        <a class="link" href=''>View more details</a> 
+      </dl>
+    </section>
+    <script src="/static/ajax.js"></script>
 
   {% for country in countries %}
 

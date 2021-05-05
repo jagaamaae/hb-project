@@ -2,6 +2,7 @@ body {
   counter-reset: h3counter;
   font-family: sans-serif;
   padding-bottom: 200px;
+  background-color: rgb(181, 233, 216);
 }
 
 input[type=button], input[type=submit], button {

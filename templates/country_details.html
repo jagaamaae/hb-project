@@ -5,7 +5,7 @@
 
 {% block body %}
 
-<h1>{{ country}}</h1>
+<h1>{{country}}</h1>
 <p>
   Population is {{ population }}
 </p>
@@ -30,7 +30,7 @@
                                   type: "line",
                                   options: options
                               });
-      $("#lineLegend").html(myLineChart.generateLegend());
+     
       });
       </script>
 
@@ -78,11 +78,13 @@
                     <tbody>
                       
                       <tr data-toggle="collapse"  class="accordion-toggle" data-target="#demo10">
-                        <td> <a href="#">Enginner Software</a></td>
-                        <td>U$8.00000 </td>
-                        <td> 2016/09/27</td>
-                        <td> 2017/09/27</td>
-                        <td> 
+                        {% for case in cases %}
+                        <tr> <a href="#"></a></a></tr>
+                        <td>{{case.date}}</td>
+                        <td>{{case.confirmed}} </td>
+                        <td> {{case.recovered}}</td>
+                        <td> {{case.deaths}}</td>
+                        {% endfor %}
                           <a href="#" class="btn btn-default btn-sm">
                                 <i class="glyphicon glyphicon-cog"></i>
                             </a>
@@ -104,8 +106,6 @@
                         <th>item 2</th>
                         <th>item 3 </th>
                         <th>item 4</th>
-                        <th>item 5</th>
-                        <th>Actions</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -114,7 +114,6 @@
                         <td>item 2</td>
                         <td>item 3</td>
                         <td>item 4</td>
-                        <td>item 5</td>
                         <td>
                             <a href="#" class="btn btn-default btn-sm">
                               <i class="glyphicon glyphicon-cog"></i>

@@ -34,6 +34,9 @@
       <ul class="navbar-nav mr-auto">
         <li class="nav-item">
           <a class="nav-link" href="/countries">All Countries</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/select">Select a country</a>
           </li>
         <li class="nav-item">
         <a class="nav-link" href="/north_america">North America</a>
@@ -52,6 +55,9 @@
         </li>
       <li class="nav-item">
         <a class="nav-link" href="/about">About</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/contact">Contact</a>
       </li>
     </ul>
 
@@ -72,32 +78,14 @@
                   
                       signIn.addEventListener('click', changeText);
                     </script>
+      
         </li>
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="login-info" data-toggle="modal" data-target="#exampleModal"><button type="button" id='signIn' class='signInText'>Login</button></a>
-             <script>
-                      "use strict";
-                        let button = document.querySelector('#signIn');           
-                        function changeText() {
-                          if (button.innerHTML === 'Logout') {
-                            button.innerHTML = 'Login';
-                          }
-                          else if (button.innerHTML === 'Login') {
-                            button.innerHTML = 'Logout';
-                        }
-                      }
-                    
-                        signIn.addEventListener('click', changeText);
-                      </script>
-          </li>
-
           <!-- Login Modal -->
           <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h5 class="modal-title" id="modalLabel"> Close if you change your mind</h5>
+
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>
@@ -123,7 +111,47 @@
               </div>
             </div>
           </div>
-          <!-- End login modal -->
+
+      <ul class="navbar-nav ml-auto">
+      
+          <li class="nav-item">
+            <a class="nav-link" href="login-info" data-toggle="modal" data-target="#exampleModal"><button type="button" id='signIn' class='signInText'>Account</button></a>
+          </li>
+          
+  
+            <!-- Account Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+  
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                  </div>
+                    <div class="modal-footer">         
+                      <form action="/users" method="POST">
+                      <p>
+                        Username <input type="text" name="email">
+                      </p>
+                      <p>
+                          Email <input type="text" name="email">
+                      </p>
+                      <p>
+                        Password <input type="password" name="password">
+                      </p>
+                      </form>
+                      <p>
+                        <input type="submit">
+                      </p>    
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+          <!-- End account modal -->
           <!-- Settings Dropdown -->
 
         <li class="nav-item dropdown">
@@ -133,7 +161,7 @@
         
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             <a class="dropdown-item" href="/select">Select a country</a>
-            
+            <a class="dropdown-item" href="/select">Favorite country</a>
             {% if "email" in session %}
             <a class="dropdown-item" href='/users/{{session.email}}'>Your Profile</a>
             {% endif %}
@@ -143,19 +171,13 @@
         
       </ul>
 
-    <!-- Search form -->
-    <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-    </form>
-    <!-- End search -->
 
   </div>
   <!-- End nav content -->
 
   </nav>
 
-  <div>
+  <div class="center">
     {% for msg in get_flashed_messages()%}
     <p class ="flash-msg%">
       {{msg}}

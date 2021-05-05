@@ -1,7 +1,7 @@
 /*   Sitewide  */
 
 .navbar {
-	background-color: #b4c157;
+	background-color: #9deca8;
 	color: rgb(100, 99, 99);
 	border-radius: 0px;
 }
@@ -27,7 +27,7 @@ section {
 }
 
 #splash {
-	margin-bottom: 25px;
+	padding:0;
 	font-size: 18px;
 }
 
@@ -45,5 +45,10 @@ section {
 }
 
 .dropdown-menu{
-	background-color:#b4c157;
+	background-color:#9deca8;
 }
+
+.account-container{
+	text-align:'center';
+} 
+

@@ -70,10 +70,8 @@ def show_countries():
 @app.route('/countries/<country>')
 def show_details(country):
     population=crud.get_country_population(country)
-    capital =crud.get_country_capital(country)
-    continent =crud.get_country_continent(country)
     cases=crud.get_country_cases(country)
-    return render_template('country_details.html', cases = cases, population=population, country=country,capital=capital, continent=continent)
+    return render_template('country_details.html', cases = cases, population=population, country=country)
 
 @app.route('/select')
 def show_selector():
@@ -83,8 +81,7 @@ def show_selector():
 @app.route('/most_affected_details/<country>')
 def get_details(country):
     population = crud.get_country_population(country.lstrip())
-    print(country)
-    print(population)
+
     return jsonify({'country': country, 'population': population})
 
     # return redirect(f'/countries/{country.lstrip()}')
