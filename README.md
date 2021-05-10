@@ -101,16 +101,15 @@ Feel free to email me with any questions at: jagaamaae@gmail.com
 Currently Updating the app
 
 # Acknowledgments
-Hackbright Academy and its Staff 
+Hackbright Academy and its Staff. Perficient was a sponsor for this cohort. Thank you!
 
-
-# License
-This project is not licensed currently. Feel free to use.
-
-
-# <a name="about-me"
+# About me
 I'm a former international relations specialist and polyglot turned to public policy analyst and economist. 
  <br><br>
 Programming allows me to satisfy my never-stopping-to-work mind that always seeks for solutions<br><br>
-Having the opportunity to create an app that is useful to me with assistance from talented instructors from Hackbright was amazing. Charts that you want came from my personal interests and needs of visualizing the data. I have been querying database without any visual aids for too long. So, Charts for economists was born!  </a> <br><br>
+Having the opportunity to create an app that is useful to me with assistance from talented instructors from Hackbright was amazing. Charts that you want came from my personal interests and needs of visualizing the data. I have been querying database without any visual aids for too long. Please use my app!  </a> <br><br>
 [Table Of Contents](#table-contents)
+
+# License
+
+This app is not licensed, feel free to use it or lose it!
