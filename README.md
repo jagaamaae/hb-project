@@ -1,42 +1,116 @@
-I'm a former international relations specialist and polyglot turned to public policy analyst and economist. 
 
-Start with a joke. How can an economist express their love? Via chart!
 
-Hence, my project is all about charts.
-My project helps economist to load data and 
-A)quickly gets a chart  from a given json, CSV
-B)also gives basic facts about different countries
-C)sorts countries into continents so that economists can quickly grab their data
+# An app for economists
+<strong> Charts that you want</strong><br>
 
-Tools:Flask, jinja, javascript, jquery, ajax, sqlalchemy, cookies and sessions, postgresql
+# <a name="table-contents">
+# Table of Contents
+* [Description](#description)
+* [Features](#features)
+* [Technologies](#tech)
+* [Installation](#install)
+* [Support](#support)
+* [Coming Soon](#comming-soon)
+* [Release History](#release-history)
+* [About Me](#about-me)
 
-Star features: Charts JS, buttons (a)changes the words depending whether user is in session b) has a form and post request c) nav bar's user interface that is very easy to use.
 
-About backend: I'm using postgres sql databse covid which has a connection with 3 other tables(population, capital, continent) using the common variable of a country name. Also, there is a user's table called users, which generates 10 dummy users and stores additional users.
+# <a name="description">
+# Description
 
-I'm seeding all these databases from the json file that I have it locally.
-
-At last, I have another python file that has sqlalchemy functions which allow me to query the tables and pull certain countries based on their continent. Additinally, I'm pulling my covid case data through get_country_cases function, which will feed into my chars. At last, the users function is important for getting users by their email or as an entier object. All of this is being added and being commited to my database.
-
-Overall, I have 16 html files, which show data that was pulled from the functions of crud.py
-
-About front end:
- the base.html is inherited throughout all of my other hmtl files. The nav bar is very user-friendly, because you can see all of my routes.
-
- The star of the show is my login/logout button which is responsive and changes teh wording when teh user is in session. I used JS AJAX request by using fetch built-in function.
+Charts that you want is an application for economists to quickly glance at the country statistics
  
- Here I'm showing my jinja codes, which were used throughout all of my html.
+</a><br><br>
+[Table Of Contents](#table-contents)
 
- I'm showing my Account button, which has a pop-up where Form action is present and does a post request. 
+# <a name="feautures">
+# Features
 
- Here is my settings dropdown menu, which personlizes teh experience by providing the user information about their profile.
+**Homepage** <br><br>
+Users can register, login or retrieve login information
 
- Also, flash messages throughout.
 
- Lastly, I showed my JS files: charts, login JS ajax request, and selection of countries JS ajax request. 
+![Homepage] 
 
-On the website, I'm logging in and showing my flash messages. 
+**Show countries based on their continent** <br><br>
+* show all countries
 
-Once, logged in I can go and select the country of my choice, which creates an ajax request and has a link, where I click and shows my charts. 
 
-Another star of the website is the collapsible button, which I created using JS and CSS tools.
+
+**Show countries by continenet** <br><br>
+* show North America, Asia, Africa and Oceania
+
+**Show Details** <br><br>
+
+* by selecting the country from the main page or the user's profile
+</a><br>
+[Table Of Contents](#table-contents)
+
+
+# <a name="tech">
+# Technologies Used
+* Python
+* HTML
+* CSS
+* SQLAlchemy
+* PostgreSQL
+* Jinja2
+* Flask
+* API Used:
+    * 
+
+</a><br>
+[Table Of Contents](#table-contents)
+
+# <a name="install">
+# Installation
+   * To clone/fork this repo: <br>
+    `https://github.com/jagaamaae/hb-project
+* Create and activate a virtual environment inside your project directory: <br>
+        `virtualenv env` <br>
+        `source env/bin/activate`
+* Install the dependencies: <br>
+        `pip3 install -r requirements.txt`
+
+* Set up the database: <br>
+        `createdb name-of-db` (create your db)<br>
+        `psql name-of-db` (to see your db/tables) <br>
+        `python3 model.py` <br>
+        `python3 seed.py`
+* Run the app: <br>
+        `python3 server.py`
+        <br><br>
+Can now navigate to `localhost:5000/` to access <strong>Charts</strong>
+</a><br><br>
+[Table Of Contents](#table-contents)
+
+
+# <a name="support"> 
+# Support
+Feel free to email me with any questions at: jagaamaae@gmail.com 
+</a><br><br>
+[Table Of Contents](#table-contents)
+
+# <a name="coming-soon">
+# Coming Soon
+* User's will be able to soon use cloudinary.
+
+</a><br><br>
+
+# Project Status
+Currently Updating the app
+
+# Acknowledgments
+Hackbright Academy and its Staff 
+
+
+# License
+This project is not licensed currently. Feel free to use.
+
+
+# <a name="about-me"
+I'm a former international relations specialist and polyglot turned to public policy analyst and economist. 
+ <br><br>
+Programming allows me to satisfy my never-stopping-to-work mind that always seeks for solutions<br><br>
+Having the opportunity to create an app that is useful to me with assistance from talented instructors from Hackbright was amazing. Charts that you want came from my personal interests and needs of visualizing the data. I have been querying database without any visual aids for too long. So, Charts for economists was born!  </a> <br><br>
+[Table Of Contents](#table-contents)
